@@ -74,6 +74,7 @@
 		D01899D8291CB00700534F33 /* UITextField+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01899D7291CB00700534F33 /* UITextField+Rx.swift */; };
 		D01899DC291CB01900534F33 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D01899DA291CB01900534F33 /* Setting.storyboard */; };
 		D01899DD291CB01900534F33 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01899DB291CB01900534F33 /* SettingViewController.swift */; };
+		D0380922291E2F4100C203D0 /* FollowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0380921291E2F4100C203D0 /* FollowCollectionViewCell.swift */; };
 		D0872449291C94E40003E6D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872448291C94E40003E6D3 /* AppDelegate.swift */; };
 		D0872450291C94E40003E6D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D087244E291C94E40003E6D3 /* Main.storyboard */; };
 		D0872452291C94E50003E6D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0872451291C94E50003E6D3 /* Assets.xcassets */; };
@@ -188,6 +189,7 @@
 		D01899D7291CB00700534F33 /* UITextField+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Rx.swift"; sourceTree = "<group>"; };
 		D01899DA291CB01900534F33 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		D01899DB291CB01900534F33 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		D0380921291E2F4100C203D0 /* FollowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0872445291C94E40003E6D3 /* Sprout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0872448291C94E40003E6D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D087244F291C94E40003E6D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				D0189980291CA9E700534F33 /* FollowViewController.swift */,
 				D0189983291CA9E700534F33 /* UserProfileAboutViewController.swift */,
 				D0189981291CA9E700534F33 /* UserProfileViewController.swift */,
+				D0380921291E2F4100C203D0 /* FollowCollectionViewCell.swift */,
 			);
 			path = Follow;
 			sourceTree = "<group>";
@@ -904,6 +907,7 @@
 				D0189964291C9BD200534F33 /* MenuView.swift in Sources */,
 				D01899B2291CAF8500534F33 /* MainFilterViewController.swift in Sources */,
 				D01899C9291CAFC900534F33 /* FirebaseManager.swift in Sources */,
+				D0380922291E2F4100C203D0 /* FollowCollectionViewCell.swift in Sources */,
 				D01899C4291CAFAF00534F33 /* MainFullCell.swift in Sources */,
 				D0872449291C94E40003E6D3 /* AppDelegate.swift in Sources */,
 				D01899CE291CAFE500534F33 /* MessengerViewController.swift in Sources */,

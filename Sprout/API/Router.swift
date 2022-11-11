@@ -61,10 +61,6 @@ extension Router {
     
     func buildRequest(parameters: Parameters = [:]) -> Observable<Data> {
         
-        DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        }
-        
         DEBUG_LOG("buildRequest URL: \(self.url.absoluteString)")
                 
         return Observable<Data>.create{ (anyObserver) -> Disposable in
@@ -82,9 +78,6 @@ extension Router {
                     if let data = dataResponse.data {
                         anyObserver.onNext(data)
                         anyObserver.onCompleted()
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        }
                     }else{
                         if let error = dataResponse.error {
                             let alert: UIAlertController = UIAlertController(title: "청출어람", message: error.localizedDescription, preferredStyle: .alert)
@@ -92,17 +85,11 @@ extension Router {
 //                            App.delegate.window?.rootViewController?.present(alert, animated: true, completion: nil)
                             anyObserver.onError(error)
                         }
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        }
                     }
                 })
             
             return Disposables.create {
                 request.cancel()
-                DispatchQueue.main.async {
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                }
             }
         }
     }

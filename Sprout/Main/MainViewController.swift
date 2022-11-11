@@ -19,15 +19,24 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var gridButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIBarButtonItem!
     
-    var flag: Bool = false
+    var flag: Bool = true
     var csvTestIndex = 0
+    
+    private var words: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        collectionView.reloadData()
+        App.api.randomWord(nums: 20) { [weak self] (words) in
+            guard let `self` = self else { return }
+            self.words = words
+            
+            self.collectionView.reloadData()
+        }
+        
         buttonBind()
         
         self.readFile(fileName: "City", fileType: "txt")
@@ -56,18 +65,14 @@ extension MainViewController {
                 self.navigationController?.pushViewController(viewController, animated: true)
             }).disposed(by: disposeBag)
         
-        collectionView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
+        collectionView.rx.itemSelected.debug()
+            .subscribe(onNext: { [weak self] (indexPath) in
                 guard let `self` = self else { return }
                 let viewController = UserProfileViewController.viewController("Follow")
                 
                 let panModalViewController: PanModalPresentable.LayoutType = viewController
                 self.presentPanModal(panModalViewController)
                 
-//                viewController.modalPresentationStyle = .fullScreen
-//                self.present(viewController, animated: true, completion: nil)
-                //viewController.hidesBottomBarWhenPushed = true
-                //self.navigationController?.pushViewController(viewController, animated: true)
             }).disposed(by: disposeBag)
         
     }
@@ -75,17 +80,17 @@ extension MainViewController {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return words.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if flag {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainHorizontalCell", for: indexPath) as! MainHorizontalCell
-            cell.updateCell()
+            cell.updateCell(urlString: words[indexPath.row])
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainFullCell", for: indexPath) as! MainFullCell
-            cell.updateCell()
+            cell.updateCell(urlString: words[indexPath.row])
             return cell
         }
     }

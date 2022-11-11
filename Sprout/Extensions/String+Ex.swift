@@ -12,4 +12,9 @@ extension String {
     func regularExpression() -> String {
         return ""
     }
+    
+    var randomImageURL: URL? {
+        return URL(string: "https://source.unsplash.com/random/?\(self)")
+    }
+    
 }

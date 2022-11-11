@@ -1,20 +1,19 @@
 //
-//  MainFullCell.swift
+//  FollowCollectionViewCell.swift
 //  Sprout
 //
-//  Created by Blanc on 2022/11/10.
+//  Created by Blanc on 2022/11/11.
 //  Copyright © 2022 Blanc. All rights reserved.
 //
 
 import UIKit
-import Kingfisher
 
-class MainFullCell: UICollectionViewCell {
+class FollowCollectionViewCell: UICollectionViewCell {
+
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var nicknameLabel: UILabel!
-    @IBOutlet weak var fieldLabel: UILabel!
-    @IBOutlet weak var cityNtimeLabel: UILabel!
+    @IBOutlet weak var profileMessageLabel: UILabel!
+    @IBOutlet weak var unfollowButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +27,7 @@ class MainFullCell: UICollectionViewCell {
     }
     
     func updateCell(urlString: String) {
+        
         if let url = urlString.randomImageURL {
             self.profileImageView.kf.setImage(with: url, completionHandler: { result in
                 switch result {
@@ -44,17 +44,18 @@ class MainFullCell: UICollectionViewCell {
         }
         
         nicknameLabel.text = urlString
-        fieldLabel.text = "연기 / 보컬 / 댄스 - 뮤지컬"
-        cityNtimeLabel.text = "서울 - 강남구 & 저녁"
-
+        
+        let btnImage = urlString.count % 2 == 0 ? UIImage(named: "follow") : UIImage(named: "unfollow")
+        unfollowButton.setImage(btnImage, for: .normal)
     }
     
 }
 
-extension MainFullCell {
+extension FollowCollectionViewCell {
     func configureInit() {
-        infoView.layer.cornerRadius = 8
-        infoView.layer.masksToBounds = true
+        
+        profileImageView.layer.cornerRadius = 30
+        profileImageView.layer.masksToBounds = true
         
         contentView.layer.addBasicBorder(color: UIColor(named: "MainCell_BlackNWhite")!, width: 2, cornerRadius: 8)
         contentView.layer.masksToBounds = true
@@ -64,5 +65,6 @@ extension MainFullCell {
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.shadowRadius = 2
+                
     }
 }

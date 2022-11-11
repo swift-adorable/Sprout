@@ -881,6 +881,7 @@ Label</string>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
+                                            <color key="backgroundColor" name="WhiteNBlack"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Byh-Rw-0K6" secondAttribute="trailing" constant="12" id="BGU-OD-BWG"/>
                                                 <constraint firstItem="HvJ-g6-qCw" firstAttribute="leading" secondItem="Dnj-6L-k1H" secondAttribute="leading" constant="12" id="oyQ-fu-4Vh"/>

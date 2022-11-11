@@ -36,8 +36,8 @@ extension BaseViewController: UIGestureRecognizerDelegate {
     private func initializedNavigation() {
         
         self.navigationController?.navigationBar.tintColor = .signatureNWhite
-        self.title = "새싹"
-        
+        self.navigationController?.navigationBar.topItem?.title = "새싹"
+
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithTransparentBackground()
@@ -70,7 +70,7 @@ extension BaseViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        scrollIsEndDrag.onNext(true)
+        //scrollIsEndDrag.onNext(true)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

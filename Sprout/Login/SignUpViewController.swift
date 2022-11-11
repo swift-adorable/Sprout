@@ -34,7 +34,7 @@ class SignUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        initializedConfigure()
+        initializedConfigure()
 //        bindToReactor()
         
     }
@@ -150,20 +150,20 @@ class SignUpViewController: BaseViewController {
 //    }
 //
 //}
-//
-//extension SignUpViewController {
-//    private func initializedConfigure() {
-//        self.reactor = SignUpReactor()
-//        let color = UIColor.signatureNWhite
-//        completeButton.isEnabled = false
-//        completeButton.backgroundColor = color.withAlphaComponent(0.6)
-//        completeButton.layer.addBasicBorder(color: .clear, width: 0.5, cornerRadius: 5)
-//        emailTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
-//        pwdTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
-//        pwdCheckTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
-//        nickNameTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
-//        profileImage.layer.addBasicBorder(color: color.withAlphaComponent(0.2), width: 2, cornerRadius: 27)
-//
-//    }
-//}
-//
+
+extension SignUpViewController {
+    private func initializedConfigure() {
+        //self.reactor = SignUpReactor()
+        let color = UIColor.signatureNWhite
+        completeButton.isEnabled = false
+        completeButton.backgroundColor = color.withAlphaComponent(0.6)
+        completeButton.layer.addBasicBorder(color: .clear, width: 0.5, cornerRadius: 5)
+        emailTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
+        pwdTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
+        pwdCheckTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
+        nickNameTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
+        profileImage.layer.addBasicBorder(color: color.withAlphaComponent(0.2), width: 2, cornerRadius: 27)
+
+    }
+}
+

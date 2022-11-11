@@ -86,3 +86,35 @@ extension API {
     }
     
 }
+
+//MARK: random word
+extension API {
+    func randomWord(nums: Int, _ completion: @escaping ([String]) -> Void) {
+        
+        guard let url = URL(string: "https://random-word.ryanrk.com/api/en/word/random/\(nums)") else { return }
+        
+        let request = AF.request(url)
+            
+        request.responseData { (dataResponse) in
+//                    DEBUG_LOG(dataResponse.debugDescription)
+//                    DEBUG_LOG("statusCode: \(dataResponse.response?.statusCode ?? 100)")
+            
+            if let data = dataResponse.data {
+                do {
+                    let data = try self.decoder.decode([String].self, from: data)
+
+                    completion(data)
+                    
+                } catch(let error) {
+                    DEBUG_LOG("random word error: " + error.localizedDescription )
+                }
+                
+            } else {
+                if dataResponse.error != nil {
+                    DEBUG_LOG("random word error: " + (dataResponse.error?.localizedDescription ?? "") )
+                }
+            }
+        }
+        
+    }
+}

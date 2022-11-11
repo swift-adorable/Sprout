@@ -46,6 +46,8 @@ extension TabBarController {
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
             appearance.backgroundColor = .systemBackground
+            appearance.shadowImage = nil
+            appearance.shadowColor = nil
             
             setTabBarItemColors(appearance.stackedLayoutAppearance)
             setTabBarItemColors(appearance.inlineLayoutAppearance)
@@ -59,7 +61,11 @@ extension TabBarController {
             UITabBar.appearance().tintColor = signatureTheme
             UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : signatureTheme], for: .normal)
             UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : signatureTheme], for: .selected)
+            tabBar.backgroundImage = UIImage()
+            tabBar.shadowImage = UIImage()
         }
+        
+        
         
     }
     
