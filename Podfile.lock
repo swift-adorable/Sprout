@@ -799,6 +799,7 @@ PODS:
   - RxSwift (6.5.0)
   - SteviaLayout (4.7.3)
   - Toaster (2.3.0)
+  - WeakMapTable (1.2.0)
   - YPImagePicker (5.2.1):
     - PryntTrimmerView (= 4.0.2)
     - SteviaLayout (= 4.7.3)
@@ -815,6 +816,7 @@ DEPENDENCIES:
   - RxDataSources
   - RxSwift
   - Toaster
+  - WeakMapTable
   - YPImagePicker
 
 SPEC REPOS:
@@ -852,6 +854,7 @@ SPEC REPOS:
     - RxSwift
     - SteviaLayout
     - Toaster
+    - WeakMapTable
     - YPImagePicker
 
 SPEC CHECKSUMS:
@@ -888,8 +891,9 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
+  WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
   YPImagePicker: f36043210c10b0783034eb1947d6e06e31c461e4
 
-PODFILE CHECKSUM: d06033ef639e743235f7b5d03bf020714d274f79
+PODFILE CHECKSUM: 1eddaedb162921b0faebbb6d2f293a3e4dcd9dbb
 
 COCOAPODS: 1.11.3

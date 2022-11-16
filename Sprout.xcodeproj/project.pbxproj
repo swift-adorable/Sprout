@@ -74,6 +74,8 @@
 		D01899D8291CB00700534F33 /* UITextField+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01899D7291CB00700534F33 /* UITextField+Rx.swift */; };
 		D01899DC291CB01900534F33 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D01899DA291CB01900534F33 /* Setting.storyboard */; };
 		D01899DD291CB01900534F33 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01899DB291CB01900534F33 /* SettingViewController.swift */; };
+		D01BF9912924615A00E244BB /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01BF9902924615A00E244BB /* View.swift */; };
+		D036AB8029245F6E006B08CD /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D036AB7F29245F6E006B08CD /* ViewModel.swift */; };
 		D0380922291E2F4100C203D0 /* FollowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0380921291E2F4100C203D0 /* FollowCollectionViewCell.swift */; };
 		D0872449291C94E40003E6D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872448291C94E40003E6D3 /* AppDelegate.swift */; };
 		D0872450291C94E40003E6D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D087244E291C94E40003E6D3 /* Main.storyboard */; };
@@ -81,6 +83,8 @@
 		D0872460291C94E50003E6D3 /* SproutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D087245F291C94E50003E6D3 /* SproutTests.swift */; };
 		D087246A291C94E50003E6D3 /* SproutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872469291C94E50003E6D3 /* SproutUITests.swift */; };
 		D087246C291C94E50003E6D3 /* SproutUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D087246B291C94E50003E6D3 /* SproutUITestsLaunchTests.swift */; };
+		D0C499202923604D00D0C1A0 /* SignUp+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C4991F2923604D00D0C1A0 /* SignUp+ViewModel.swift */; };
+		D0C499232923606900D0C1A0 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C499222923606900D0C1A0 /* ViewModelType.swift */; };
 		D0CC4BA1291CBEC70034D8A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CC4BA0291CBEC70034D8A9 /* LaunchScreen.storyboard */; };
 		D0CC4BA3291CBF0E0034D8A9 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0CC4BA2291CBF0E0034D8A9 /* Color.xcassets */; };
 		D0F64729291CD18A006A3917 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0F64728291CD18A006A3917 /* GoogleService-Info.plist */; };
@@ -189,6 +193,8 @@
 		D01899D7291CB00700534F33 /* UITextField+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Rx.swift"; sourceTree = "<group>"; };
 		D01899DA291CB01900534F33 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		D01899DB291CB01900534F33 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		D01BF9902924615A00E244BB /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		D036AB7F29245F6E006B08CD /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		D0380921291E2F4100C203D0 /* FollowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0872445291C94E40003E6D3 /* Sprout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0872448291C94E40003E6D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +206,8 @@
 		D0872465291C94E50003E6D3 /* SproutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SproutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0872469291C94E50003E6D3 /* SproutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutUITests.swift; sourceTree = "<group>"; };
 		D087246B291C94E50003E6D3 /* SproutUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SproutUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D0C4991F2923604D00D0C1A0 /* SignUp+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignUp+ViewModel.swift"; sourceTree = "<group>"; };
+		D0C499222923606900D0C1A0 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		D0CC4BA0291CBEC70034D8A9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0CC4BA2291CBF0E0034D8A9 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		D0F64728291CD18A006A3917 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -354,6 +362,7 @@
 		D018999E291CAF5000534F33 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				D0C4991E2923603F00D0C1A0 /* Model */,
 				D01899A9291CAF5E00534F33 /* Reactor */,
 				D01899A1291CAF5B00534F33 /* Login.storyboard */,
 				D018999F291CAF5B00534F33 /* LoginViewController.swift */,
@@ -477,6 +486,7 @@
 		D0872447291C94E40003E6D3 /* Sprout */ = {
 			isa = PBXGroup;
 			children = (
+				D0C499212923605E00D0C1A0 /* Protocol */,
 				D01899C6291CAFC300534F33 /* Manager */,
 				D018996C291CA9A100534F33 /* Extensions */,
 				D0189966291C9BDD00534F33 /* Utils */,
@@ -515,6 +525,24 @@
 				D087246B291C94E50003E6D3 /* SproutUITestsLaunchTests.swift */,
 			);
 			path = SproutUITests;
+			sourceTree = "<group>";
+		};
+		D0C4991E2923603F00D0C1A0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D0C4991F2923604D00D0C1A0 /* SignUp+ViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D0C499212923605E00D0C1A0 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D0C499222923606900D0C1A0 /* ViewModelType.swift */,
+				D036AB7F29245F6E006B08CD /* ViewModel.swift */,
+				D01BF9902924615A00E244BB /* View.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		D0F6472A291CD252006A3917 /* StarRate */ = {
@@ -893,6 +921,7 @@
 				D0189965291C9BD200534F33 /* BaseViewController.swift in Sources */,
 				D01899BB291CAF9300534F33 /* Category+Field.swift in Sources */,
 				D0F6474A291CE0FA006A3917 /* PanModalPresentationAnimator.swift in Sources */,
+				D01BF9912924615A00E244BB /* View.swift in Sources */,
 				D018999A291CAF4600534F33 /* StarRateAccessibility.swift in Sources */,
 				D01899DD291CB01900534F33 /* SettingViewController.swift in Sources */,
 				D0189963291C9BD200534F33 /* Utils.swift in Sources */,
@@ -904,9 +933,11 @@
 				D0189996291CAF4600534F33 /* PaddingLabel.swift in Sources */,
 				D018999B291CAF4600534F33 /* StarRateSettings.swift in Sources */,
 				D01899C0291CAFA200534F33 /* MainFilterReactor.swift in Sources */,
+				D036AB8029245F6E006B08CD /* ViewModel.swift in Sources */,
 				D0189964291C9BD200534F33 /* MenuView.swift in Sources */,
 				D01899B2291CAF8500534F33 /* MainFilterViewController.swift in Sources */,
 				D01899C9291CAFC900534F33 /* FirebaseManager.swift in Sources */,
+				D0C499202923604D00D0C1A0 /* SignUp+ViewModel.swift in Sources */,
 				D0380922291E2F4100C203D0 /* FollowCollectionViewCell.swift in Sources */,
 				D01899C4291CAFAF00534F33 /* MainFullCell.swift in Sources */,
 				D0872449291C94E40003E6D3 /* AppDelegate.swift in Sources */,
@@ -918,6 +949,7 @@
 				D018997E291CA9AA00534F33 /* String+Ex.swift in Sources */,
 				D0189961291C9BD200534F33 /* ScrollingMenuView.swift in Sources */,
 				D018999D291CAF4600534F33 /* StarRateLayers.swift in Sources */,
+				D0C499232923606900D0C1A0 /* ViewModelType.swift in Sources */,
 				D0189997291CAF4600534F33 /* StarRateSize.swift in Sources */,
 				D018997A291CA9AA00534F33 /* UIView+Ex.swift in Sources */,
 				D0F64745291CE0FA006A3917 /* PanModalPresentable+UIViewController.swift in Sources */,

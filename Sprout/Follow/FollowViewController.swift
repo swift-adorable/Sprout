@@ -19,8 +19,8 @@ class FollowViewController: BaseViewController {
 
         collectionView.delegate = self
         collectionView.dataSource = self
-        let space: CGFloat = 8
-        collectionView.contentInset = UIEdgeInsets(top: space, left: space, bottom: space, right: space)
+//        let space: CGFloat = 8
+//        collectionView.contentInset = UIEdgeInsets(top: space, left: space, bottom: space, right: space)
         
         App.api.randomWord(nums: 20) { [weak self] (words) in
             guard let `self` = self else { return }
@@ -30,10 +30,10 @@ class FollowViewController: BaseViewController {
         }
         
     }
-    
 }
 
 extension FollowViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return words.count
     }
@@ -69,4 +69,25 @@ extension FollowViewController: UICollectionViewDelegateFlowLayout {
         
         return 8
     }
+    
+    //MARK: UICollectionView 꾹 누르기 액션
+//    func collectionView(_ collectionView: UICollectionView,
+//                        contextMenuConfigurationForItemsAt indexPaths: [IndexPath],
+//                        point: CGPoint) -> UIContextMenuConfiguration? {
+//
+//        guard indexPaths.first != nil else { return nil }
+//        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+//            if #available(iOS 15.0, *) {
+//                let downloadAction = UIAction(title: "Donwload", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
+//                    DEBUG_LOG("TEST!! CollectionView Contextual Action")
+//                }
+//                return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [downloadAction])
+//            } else {
+//                // Fallback on earlier versions
+//            }
+//            return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [])
+//        }
+//        return config
+//
+//    }
 }

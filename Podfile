@@ -22,6 +22,7 @@ target 'Sprout' do
   pod 'YPImagePicker'
   pod 'Kingfisher'
   pod 'Alamofire'
+  pod 'WeakMapTable'
 
   target 'SproutTests' do
     inherit! :search_paths

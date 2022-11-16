@@ -34,18 +34,19 @@ class SignUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel = SignUpViewModel()
+        
         initializedConfigure()
-//        bindToReactor()
         
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         let color: UIColor = .signatureNWhite
-        emailTextField.layer.borderColor = color.cgColor
-        pwdTextField.layer.borderColor = color.cgColor
-        pwdCheckTextField.layer.borderColor = color.cgColor
-        nickNameTextField.layer.borderColor = color.cgColor
+        
+        [emailTextField, pwdTextField, pwdCheckTextField, nickNameTextField]
+            .forEach { $0.layer.borderColor = color.cgColor }
+        
         profileImage.layer.borderColor = color.withAlphaComponent(0.2).cgColor
     }
     
@@ -53,6 +54,19 @@ class SignUpViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
+}
+
+extension SignUpViewController: ViewModel {
+    func bind(viewModel: SignUpViewModel) {
+        
+        input = ViewModel.Input(done: completeButton.rx.tap.asObservable())
+        
+        output?.resultMessage
+            .subscribe(onNext: { text in
+                DEBUG_LOG("TEST!! \(text)")
+            }).disposed(by: disposeBag)
+        
+    }
 }
 
 //extension SignUpViewController {
@@ -155,7 +169,7 @@ extension SignUpViewController {
     private func initializedConfigure() {
         //self.reactor = SignUpReactor()
         let color = UIColor.signatureNWhite
-        completeButton.isEnabled = false
+        //completeButton.isEnabled = false
         completeButton.backgroundColor = color.withAlphaComponent(0.6)
         completeButton.layer.addBasicBorder(color: .clear, width: 0.5, cornerRadius: 5)
         emailTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)

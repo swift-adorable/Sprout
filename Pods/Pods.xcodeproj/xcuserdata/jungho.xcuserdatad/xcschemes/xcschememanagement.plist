@@ -221,12 +221,19 @@
 			<key>orderHint</key>
 			<integer>36</integer>
 		</dict>
-		<key>YPImagePicker.xcscheme</key>
+		<key>WeakMapTable.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>37</integer>
+		</dict>
+		<key>YPImagePicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>38</integer>
 		</dict>
 		<key>abseil.xcscheme</key>
 		<dict>
