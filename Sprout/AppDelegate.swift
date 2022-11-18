@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        configureInit()
+        
         // Firebase configure
         FirebaseApp.configure()
         
@@ -24,3 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate {
+    fileprivate func configureInit() {
+        window?.tintColor = .signature
+    }
+}

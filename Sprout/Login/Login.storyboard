@@ -323,7 +323,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgh-zX-Swr">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="770"/>
                                 <subviews>
-                                    <stackView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="200" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C4O-G7-OYp">
+                                    <stackView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="200" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="C4O-G7-OYp">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                     </stackView>
                                 </subviews>
@@ -333,9 +333,6 @@
                                     <constraint firstAttribute="bottom" secondItem="C4O-G7-OYp" secondAttribute="bottom" id="Kk3-5X-MKg"/>
                                     <constraint firstAttribute="trailing" secondItem="C4O-G7-OYp" secondAttribute="trailing" id="W16-zr-PkJ"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="E56-s5-WOF" id="vca-gn-fue"/>
-                                </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxO-nD-F7W">
                                 <rect key="frame" x="24" y="688" width="366" height="52"/>

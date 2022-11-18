@@ -13,7 +13,6 @@ public enum SignUpInputType: CaseIterable {
     case Password
     case DuplicatePassword
     case Nickname
-    case Unknown
 }
 
 extension SignUpInputType {
@@ -29,8 +28,7 @@ extension SignUpInputType {
             return "비밀번호 확인"
         case .Nickname:
             return "닉네임"
-        case .Unknown:
-            return ""
+
         }
     }
     
@@ -61,8 +59,6 @@ extension SignUpInputType {
             return "비밀번호를 한번 더 입력해주세요"
         case .Nickname:
             return "닉네임을 입력해주세요"
-        case .Unknown:
-            return ""
         }
     }
     

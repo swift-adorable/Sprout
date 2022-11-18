@@ -64,7 +64,6 @@ class SignUpViewModel: ViewModelType {
                     newValue.nickname = text
                 case .DuplicatePassword:
                     newValue.password = text
-                case .Unknown: break
                 }
                 self.user.onNext(newValue)
             }).disposed(by: disposeBag)

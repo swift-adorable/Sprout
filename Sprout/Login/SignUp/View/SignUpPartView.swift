@@ -12,11 +12,7 @@ import RxSwift
 class SignUpPartView: UIView {
     
     //MARK: UI Property
-    private let descriptLabel: UILabel = {
-        let lb = UILabel()
-        lb.font = .systemFont(ofSize: 12, weight: .semibold)
-        return lb
-    }()
+    private let descriptLabel = UILabel()
     
     private let textField: UITextField = {
         let tf = UITextField()
@@ -46,8 +42,8 @@ class SignUpPartView: UIView {
     }()
     
     //MARK: Value Property
-    private var type: SignUpInputType = .Unknown
-    var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Unknown, ""))
+    private var type: SignUpInputType = .Email
+    var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Email, ""))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,8 +76,6 @@ extension SignUpPartView {
         connectToAnchor(child: horizontalStackView, left: 26, bottom: -4, right: -26)
         horizontalStackView.topAnchor.constraint(equalTo: descriptLabel.bottomAnchor, constant: 7).isActive = true
         horizontalStackView.heightAnchor.constraint(equalToConstant: 38).isActive = true
-        
-        textField.resignFirstResponder()
         
     }
     

@@ -10,6 +10,8 @@
 		6B5A501CBB08924523B83BE2 /* Pods_Sprout_SproutUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E67E65DE7D52E474B9ECE89 /* Pods_Sprout_SproutUITests.framework */; };
 		752F62495A15F6A42C436DEF /* Pods_Sprout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01AAEA4D39685E5AF11BD4B /* Pods_Sprout.framework */; };
 		94C21C35F87890804C99FC60 /* Pods_SproutTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CDA810EA546863366F66B72 /* Pods_SproutTests.framework */; };
+		D00F55512927156600195A90 /* TermsOfServicePartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00F55502927156600195A90 /* TermsOfServicePartView.swift */; };
+		D00F555329273DED00195A90 /* UIPanGestureRecognizer+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00F555229273DED00195A90 /* UIPanGestureRecognizer+Ex.swift */; };
 		D018994F291C9B7C00534F33 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018994C291C9B7C00534F33 /* API.swift */; };
 		D0189950291C9B7C00534F33 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018994D291C9B7C00534F33 /* App.swift */; };
 		D0189951291C9B7C00534F33 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018994E291C9B7C00534F33 /* Router.swift */; };
@@ -135,6 +137,8 @@
 		A01AAEA4D39685E5AF11BD4B /* Pods_Sprout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sprout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3911B319F1D047C9CA93D8F /* Pods-Sprout-SproutUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sprout-SproutUITests.debug.xcconfig"; path = "Target Support Files/Pods-Sprout-SproutUITests/Pods-Sprout-SproutUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A62A2AB231F50D30D55E20EE /* Pods-SproutTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SproutTests.release.xcconfig"; path = "Target Support Files/Pods-SproutTests/Pods-SproutTests.release.xcconfig"; sourceTree = "<group>"; };
+		D00F55502927156600195A90 /* TermsOfServicePartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServicePartView.swift; sourceTree = "<group>"; };
+		D00F555229273DED00195A90 /* UIPanGestureRecognizer+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPanGestureRecognizer+Ex.swift"; sourceTree = "<group>"; };
 		D018994C291C9B7C00534F33 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D018994D291C9B7C00534F33 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D018994E291C9B7C00534F33 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 				D0189971291CA9AA00534F33 /* UIView+Ex.swift */,
 				D018996E291CA9AA00534F33 /* UIViewController+Ex.swift */,
 				D0262D202925D04B0072FD32 /* UITextField+Ex.swift */,
+				D00F555229273DED00195A90 /* UIPanGestureRecognizer+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -490,6 +495,7 @@
 			children = (
 				D0262D192925AF5D0072FD32 /* SignUpPartView.swift */,
 				D0EF4C3129270CC2009661A6 /* TermsOfServiceView.swift */,
+				D00F55502927156600195A90 /* TermsOfServicePartView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -962,6 +968,7 @@
 				D0189950291C9B7C00534F33 /* App.swift in Sources */,
 				D018997D291CA9AA00534F33 /* UIColor+Ex.swift in Sources */,
 				D0189951291C9B7C00534F33 /* Router.swift in Sources */,
+				D00F55512927156600195A90 /* TermsOfServicePartView.swift in Sources */,
 				D0EF4C3429270CDA009661A6 /* TermsOfServiceType.swift in Sources */,
 				D01899B4291CAF8500534F33 /* MainViewController.swift in Sources */,
 				D018996B291C9BFC00534F33 /* ContractViewController.swift in Sources */,
@@ -985,6 +992,7 @@
 				D0189964291C9BD200534F33 /* MenuView.swift in Sources */,
 				D01899B2291CAF8500534F33 /* MainFilterViewController.swift in Sources */,
 				D01899C9291CAFC900534F33 /* FirebaseManager.swift in Sources */,
+				D00F555329273DED00195A90 /* UIPanGestureRecognizer+Ex.swift in Sources */,
 				D0C499202923604D00D0C1A0 /* SignUp+ViewModel.swift in Sources */,
 				D0380922291E2F4100C203D0 /* FollowCollectionViewCell.swift in Sources */,
 				D01899C4291CAFAF00534F33 /* MainFullCell.swift in Sources */,

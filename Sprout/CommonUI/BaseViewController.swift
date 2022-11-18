@@ -113,12 +113,23 @@ extension Reactive where Base: BaseViewController {
 extension BaseViewController {
     fileprivate func hideKeyboardWhenTappedAround() {
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dismissKeyboardWhenDownScroll))
+        panGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(panGesture)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+        
     }
     
     @objc fileprivate func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc fileprivate func dismissKeyboardWhenDownScroll(_ gestureRecognizer: UIPanGestureRecognizer) {
+        if gestureRecognizer.verticalDirection(target: self.view) == .Down {
+            view.endEditing(true)
+        }
     }
 }

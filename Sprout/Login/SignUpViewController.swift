@@ -18,7 +18,7 @@ class SignUpViewController: BaseViewController {
     @IBOutlet weak var completeButtonBottomAnchor: NSLayoutConstraint!
     
     var photo: BehaviorSubject<[Photo]> = BehaviorSubject(value: [])
-    private var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Unknown, ""))
+    private var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Email, ""))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -204,9 +204,14 @@ extension SignUpViewController {
             let partView = SignUpPartView(frame: CGRect(x: 0, y: 0, width: APP_WIDTH(), height: 84))
             partView.textAtEndEditing = self.textAtEndEditing
             partView.update(item)
+            partView.translatesAutoresizingMaskIntoConstraints = false
+            partView.heightAnchor.constraint(equalToConstant: 84).isActive = true
             stackView.addArrangedSubview(partView)
         }
 
+        let termsOfServiceView = TermsOfServiceView()
+        stackView.addArrangedSubview(termsOfServiceView)
+        
     }
     
 }
