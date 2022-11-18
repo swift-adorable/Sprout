@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 
 class SignUpPartView: UIView {
     
@@ -17,6 +18,7 @@ class SignUpPartView: UIView {
     private let textField: UITextField = {
         let tf = UITextField()
         tf.layer.addBasicBorder(color: .systemGray3, cornerRadius: 5)
+        tf.spellCheckingType = .no
         tf.tintColor = .signature
         tf.font = .systemFont(ofSize: 14, weight: .regular)
         tf.setPaddingLeft(constant: 10)
@@ -45,6 +47,8 @@ class SignUpPartView: UIView {
     private var type: SignUpInputType = .Email
     var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Email, ""))
     
+    private var disposeBag = DisposeBag()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -64,6 +68,30 @@ class SignUpPartView: UIView {
 }
 
 extension SignUpPartView {
+    
+    func update(_ type: SignUpInputType) {
+        self.type = type
+        descriptLabel.attributedText = type.descriptAttrText
+        textField.placeholder = type.placeholder
+        textField.textContentType = type.textContentType
+        textField.keyboardType = type.keyboardType
+        textField.isSecureTextEntry = type.isSecureTextEntry
+        duplicateCheckButton.isHidden = !type.isNeedsDuplicateCheck
+    }
+    
+    fileprivate func bind() {
+        
+        textField.rx.textAtEndEditing
+            .subscribe(onNext: { [weak self] (text) in
+                guard let `self` = self else { return }
+                self.textAtEndEditing.onNext((self.type, text))
+            })
+            .disposed(by: disposeBag)
+        
+    }
+}
+
+extension SignUpPartView {
     private func setupView() {
         addSubview(descriptLabel)
         connectToAnchor(child: descriptLabel, top: 16, left: 24)
@@ -77,12 +105,6 @@ extension SignUpPartView {
         horizontalStackView.topAnchor.constraint(equalTo: descriptLabel.bottomAnchor, constant: 7).isActive = true
         horizontalStackView.heightAnchor.constraint(equalToConstant: 38).isActive = true
         
-    }
-    
-    func update(_ type: SignUpInputType) {
-        self.type = type
-        descriptLabel.attributedText = type.descriptAttrText
-        textField.placeholder = type.placeholder
-        duplicateCheckButton.isHidden = !type.isNeedsDuplicateCheck
+        bind()
     }
 }

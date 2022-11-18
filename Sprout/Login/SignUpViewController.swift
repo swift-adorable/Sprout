@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 import RxKeyboard
 import Kingfisher
 
@@ -18,7 +19,7 @@ class SignUpViewController: BaseViewController {
     @IBOutlet weak var completeButtonBottomAnchor: NSLayoutConstraint!
     
     var photo: BehaviorSubject<[Photo]> = BehaviorSubject(value: [])
-    private var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Email, ""))
+    var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Email, ""))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,16 +28,6 @@ class SignUpViewController: BaseViewController {
         
         initializedConfigure()
         
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-//        let color: UIColor = .signatureNWhite
-        
-//        [emailTextField, pwdTextField, pwdCheckTextField, nickNameTextField]
-//            .forEach { $0.layer.borderColor = color.cgColor }
-        
-        //profileImage.layer.borderColor = color.withAlphaComponent(0.2).cgColor
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -53,16 +44,16 @@ extension SignUpViewController: ViewModel {
         input = ViewModel.Input(done: completeButton.rx.tap.asObservable(),
                                 textField: textAtEndEditing)
 //                                //photo: photo)
-//
-//        output?.resultMessage
-//            .subscribe(onNext: { text in
-//                DEBUG_LOG("TEST!! \(text)")
-//            }).disposed(by: disposeBag)
-//
-//        output?.currentUserData
-//            .subscribe(onNext: { user in
-//                DEBUG_LOG("TEST!! \(user)")
-//            }).disposed(by: disposeBag)
+
+        output?.resultMessage
+            .subscribe(onNext: { text in
+                DEBUG_LOG("TEST!! output?.resultMessage: \(text)")
+            }).disposed(by: disposeBag)
+
+        output?.currentUserData
+            .subscribe(onNext: { user in
+                DEBUG_LOG("TEST!! output?.currentUserData: \(user)")
+            }).disposed(by: disposeBag)
         
 //        output?.profileImage
 //            .asDriver(onErrorJustReturn: nil)
@@ -88,7 +79,31 @@ extension SignUpViewController: ViewModel {
 //                PhotoManager.shared.photo = self.photo
 //                PhotoManager.shared.showPicker(self, maxNumberOfItems: 1)
 //            }).disposed(by: disposeBag)
+        
     }
+}
+
+extension SignUpViewController {
+    private func initializedConfigure() {
+        
+        completeButton.layer.addBasicBorder(color: .clear, width: 0.5, cornerRadius: 5)
+        
+        //profileImage.layer.addBasicBorder(color: color.withAlphaComponent(0.2), width: 2, cornerRadius: 27)
+        
+        SignUpInputType.allCases.forEach { item in
+            let partView = SignUpPartView(frame: CGRect(x: 0, y: 0, width: APP_WIDTH(), height: 84))
+            partView.textAtEndEditing = self.textAtEndEditing
+            partView.update(item)
+            partView.translatesAutoresizingMaskIntoConstraints = false
+            partView.heightAnchor.constraint(equalToConstant: 84).isActive = true
+            stackView.addArrangedSubview(partView)
+        }
+
+        let termsOfServiceView = TermsOfServiceView()
+        stackView.addArrangedSubview(termsOfServiceView)
+        
+    }
+    
 }
 
 //extension SignUpViewController {
@@ -185,33 +200,4 @@ extension SignUpViewController: ViewModel {
 //
 //    }
 //
-//}
-
-extension SignUpViewController {
-    private func initializedConfigure() {
-        //self.reactor = SignUpReactor()
-        //let color = UIColor.signatureNWhite
-        //completeButton.isEnabled = false
-        //completeButton.backgroundColor = .signature//.withAlphaComponent(0.6)
-        completeButton.layer.addBasicBorder(color: .clear, width: 0.5, cornerRadius: 5)
-        
-//        [emailTextField, pwdTextField, pwdCheckTextField, nickNameTextField]
-//            .forEach { $0.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5) }
-        
-        //profileImage.layer.addBasicBorder(color: color.withAlphaComponent(0.2), width: 2, cornerRadius: 27)
-        
-        SignUpInputType.allCases.forEach { item in
-            let partView = SignUpPartView(frame: CGRect(x: 0, y: 0, width: APP_WIDTH(), height: 84))
-            partView.textAtEndEditing = self.textAtEndEditing
-            partView.update(item)
-            partView.translatesAutoresizingMaskIntoConstraints = false
-            partView.heightAnchor.constraint(equalToConstant: 84).isActive = true
-            stackView.addArrangedSubview(partView)
-        }
-
-        let termsOfServiceView = TermsOfServiceView()
-        stackView.addArrangedSubview(termsOfServiceView)
-        
-    }
-    
-}
+//} 

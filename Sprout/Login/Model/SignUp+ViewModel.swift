@@ -38,7 +38,7 @@ class SignUpViewModel: ViewModelType {
     func transform(_ input: Input) -> Output {
         let output = Output()
         
-        input.done.debug("ViewModel Test")
+        input.done
             .map { _ -> String in
                 let randStr = ["1", "2", "3", "4"]
                 let randNo = Int.random(in: 0 ..< 4)

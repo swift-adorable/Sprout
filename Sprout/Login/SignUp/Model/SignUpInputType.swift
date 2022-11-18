@@ -67,3 +67,29 @@ extension SignUpInputType {
     }
     
 }
+
+extension SignUpInputType {
+    var textContentType: UITextContentType? {
+        switch self {
+            
+        case .Email:
+            return .emailAddress
+        default:
+            return nil
+        }
+    }
+    
+    var isSecureTextEntry: Bool {
+        return self == .Password || self == .DuplicatePassword
+    }
+    
+    var keyboardType: UIKeyboardType {
+        switch self {
+            
+        case .Email:
+            return .emailAddress
+        default:
+            return .default
+        }
+    }
+}

@@ -9,6 +9,10 @@
 import Foundation
 import RxSwift
 
+protocol TermsOfServicePartViewDelegate: AnyObject {
+    func isCheckedButton(type: TermsOfServiceType, isSelected: Bool)
+}
+
 class TermsOfServicePartView: UIView {
     
     //MARK: UI Property
@@ -29,11 +33,15 @@ class TermsOfServicePartView: UIView {
         let btn = UIButton()
         btn.setImage(UIImage(named: "arrow_right"), for: .normal)
         btn.contentEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
-        
         return btn
     }()
     
     //MARK: Value Property
+    weak var delegate: TermsOfServicePartViewDelegate?
+    
+    private var type: TermsOfServiceType?
+    
+    private var disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,10 +71,31 @@ extension TermsOfServicePartView {
         showDetailButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
         showDetailButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         descriptLabel.rightAnchor.constraint(greaterThanOrEqualTo: showDetailButton.leftAnchor, constant: 10).isActive = true
+        
+        //MARK: Binding
+        bind()
     }
     
     func update(_ type: TermsOfServiceType) {
+        self.type = type
         descriptLabel.attributedText = type.descriptAttrText
         showDetailButton.isHidden = type.isHiddenShowDetail
+    }
+    
+    fileprivate func bind() {
+        checkButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let delegate = self?.delegate, let type = self?.type else { return }
+                self?.checkButton.isSelected.toggle()
+                let isSelected = self?.checkButton.isSelected ?? false
+                delegate.isCheckedButton(type: type, isSelected: isSelected)
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension TermsOfServicePartView: TermsOfServiceViewDelegate {
+    func checkedAllAgree(isSelected: Bool) {
+        DEBUG_LOG("TEST!! type: \(self.type), isSelected: \(isSelected)")
+        self.checkButton.isSelected = isSelected
     }
 }
