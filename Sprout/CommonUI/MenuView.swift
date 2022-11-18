@@ -31,9 +31,7 @@ class MenuView: UIView {
     var itemColor: UIColor = UIColor.colorFromRGB(0xffffff, alpha: 0.6)
     var itemSelectedColor: UIColor = UIColor.white
     
-    deinit {
-        DEBUG_LOG("MenuView deinit!!!!!")
-    }
+    deinit { DEBUG_LOG("MenuView deinit!!!!!") }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -32,16 +32,16 @@ extension Reactive where Base: StorageReference {
 
             storageRef.putData(photoData, metadata: nil, completion: { (_, err) in
                 if let err = err {
-                    DEBUG_LOG("Storage Profile Image putData Failed: \(err.localizedDescription)")
+                    //DEBUG_LOG("Storage Profile Image putData Failed: \(err.localizedDescription)")
                     obs.onError(err)
                 }
 
                 storageRef.downloadURL(completion: { (downloadURL, err) in
                     if let err = err {
-                        DEBUG_LOG("Storage Profile Image downloadURL Failed: \(err.localizedDescription)")
+                        //DEBUG_LOG("Storage Profile Image downloadURL Failed: \(err.localizedDescription)")
                         obs.onError(err)
                     } else if let profileImageUrl = downloadURL?.absoluteString {
-                        DEBUG_LOG("Storage Profile Image Upload Success")
+                        //DEBUG_LOG("Storage Profile Image Upload Success")
                         obs.onNext(profileImageUrl)
                         obs.onCompleted()
                     }

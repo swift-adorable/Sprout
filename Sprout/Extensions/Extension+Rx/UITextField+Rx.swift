@@ -19,4 +19,12 @@ extension Reactive where Base: UITextField {
             textField.sendActions(for: .valueChanged)
         }
     }
+    
+    var textAtEndEditing: Observable<String?> {
+        
+        return self.base.rx.controlEvent(.editingDidEnd)
+            .withLatestFrom(self.base.rx.text)
+            .map { $0 }
+        
+    }
 }

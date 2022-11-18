@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIView {
-    func anchor4Direct(child: UIView, top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) {
+    func connectToAnchor(child: UIView, top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) {
         
         child.translatesAutoresizingMaskIntoConstraints = false
         

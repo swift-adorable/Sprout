@@ -43,7 +43,7 @@ extension ViewModel {
     }
 
     public func performBinding() {
-        DEBUG_LOG("enter the performBinding method")
+        //DEBUG_LOG("enter the performBinding method")
         guard let viewModel = self.viewModel else { return DEBUG_LOG("viewModel nil") }
         guard !self.isReactorBinded else { return DEBUG_LOG("self.isReactorBinded") }
         guard !self.shouldDeferBinding(viewModel: viewModel) else { return DEBUG_LOG("self.shouldDeferBinding") }
@@ -52,7 +52,7 @@ extension ViewModel {
     }
 
     fileprivate func shouldDeferBinding(viewModel: ViewModel) -> Bool {
-        DEBUG_LOG("shouldDeferBinding")
+        //DEBUG_LOG("shouldDeferBinding")
         return (self as? OSViewController)?.isViewLoaded == false
     }
 }

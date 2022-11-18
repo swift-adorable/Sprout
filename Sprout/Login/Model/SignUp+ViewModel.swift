@@ -14,16 +14,24 @@ class SignUpViewModel: ViewModelType {
     
     struct Input {
         let done: Observable<Void>
+        let textField: Observable<(SignUpInputType, String?)>
+        //let photo: Observable<[Photo]>
     }
         
     struct Output {
         let resultMessage: BehaviorSubject<String>
+        let currentUserData: BehaviorSubject<User>
+        //let profileImage: BehaviorSubject<Photo?>
         
         init() {
             resultMessage = BehaviorSubject(value: "")
+            currentUserData = BehaviorSubject(value: User())
+            //profileImage = BehaviorSubject(value: nil)
         }
         
     }
+    
+    private var user = BehaviorSubject<User>(value: User())
     
     var disposeBag = DisposeBag()
     
@@ -35,8 +43,41 @@ class SignUpViewModel: ViewModelType {
                 let randStr = ["1", "2", "3", "4"]
                 let randNo = Int.random(in: 0 ..< 4)
                 return randStr[randNo]
-            }.bind(to: output.resultMessage)
-            .disposed(by: disposeBag)
+            }.subscribe(onNext: { [weak self] randNo in
+                output.resultMessage.onNext(randNo)
+                if let user = try? self?.user.value() {
+                    output.currentUserData.onNext(user)
+                }
+            }).disposed(by: disposeBag)
+        
+        input.textField
+            .subscribe(onNext: { [weak self] (textType, text) in
+                guard let `self` = self else { return }
+                guard var newValue = try? self.user.value() else { return }
+                let text = text ?? ""
+                switch textType {
+                case .Email:
+                    newValue.email = text
+                case .Password:
+                    newValue.password = text
+                case .Nickname:
+                    newValue.nickname = text
+                case .DuplicatePassword:
+                    newValue.password = text
+                case .Unknown: break
+                }
+                self.user.onNext(newValue)
+            }).disposed(by: disposeBag)
+        
+//        input.photo
+//            .withLatestFrom(user) { ($0, $1) }
+//            .subscribe(onNext: { [weak self] (photo, user) in
+//                guard let photo = photo.first else { return }
+//                var newValue = user
+//                newValue.profileImage = photo
+//                self?.user.onNext(newValue)
+//                output.profileImage.onNext(photo)
+//            }).disposed(by: disposeBag)
         
         return output
     }

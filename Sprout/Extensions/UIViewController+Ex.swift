@@ -34,7 +34,7 @@ extension UIViewController {
         
         view.addSubview(label)
         
-        view.anchor4Direct(child: label, top: 0, left: 0, bottom: 0, right: 0)
+        view.connectToAnchor(child: label, top: 0, left: 0, bottom: 0, right: 0)
         
         return view
     }

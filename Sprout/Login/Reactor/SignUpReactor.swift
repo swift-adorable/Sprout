@@ -129,7 +129,7 @@ struct User {
     var email: String
     var password: String
     var nickname: String
-    var profileImage: PostPhotoModel?
+    var profileImage: Photo?
     var userType: UserType
 
     init() {

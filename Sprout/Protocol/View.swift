@@ -50,7 +50,7 @@ extension View {
             MapTables.input.setValue(newValue, forKey: self)
             self.disposeBag = DisposeBag()
             if let input = newValue, let viewModel = self.viewModel {
-                DEBUG_LOG("ViewModel Input set new value")
+                //DEBUG_LOG("ViewModel Input set new value")
                 self.output = viewModel.transform(input)
             }
         }

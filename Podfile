@@ -11,6 +11,7 @@ target 'Sprout' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxDataSources'
+  pod 'RxKeyboard'
 
   pod 'Firebase/Auth'
   pod 'Firebase/Database'

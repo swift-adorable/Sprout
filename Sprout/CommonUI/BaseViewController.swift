@@ -19,6 +19,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializedNavigation()
+        hideKeyboardWhenTappedAround()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -29,11 +30,16 @@ class BaseViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        DEBUG_LOG("Dispose of any resources that can be recreated.")
+    }
+
     deinit{ DEBUG_LOG("Deinit‼️ " + String(describing: Self.self)) }
 }
 
 extension BaseViewController: UIGestureRecognizerDelegate {
-    private func initializedNavigation() {
+    fileprivate func initializedNavigation() {
         
         self.navigationController?.navigationBar.tintColor = .signatureNWhite
         self.navigationController?.navigationBar.topItem?.title = "새싹"
@@ -101,5 +107,18 @@ extension Reactive where Base: BaseViewController {
             
             return Disposables.create()
         }
+    }
+}
+
+extension BaseViewController {
+    fileprivate func hideKeyboardWhenTappedAround() {
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc fileprivate func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

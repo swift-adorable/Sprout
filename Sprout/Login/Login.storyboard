@@ -320,150 +320,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_Guest" translatesAutoresizingMaskIntoConstraints="NO" id="NfS-iq-Qrk">
-                                <rect key="frame" x="167" y="30" width="80" height="80"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgh-zX-Swr">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="770"/>
+                                <subviews>
+                                    <stackView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="200" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C4O-G7-OYp">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="iLn-PY-kot"/>
-                                    <constraint firstAttribute="width" secondItem="NfS-iq-Qrk" secondAttribute="height" multiplier="1:1" id="lan-PZ-BeZ"/>
+                                    <constraint firstItem="C4O-G7-OYp" firstAttribute="top" secondItem="mgh-zX-Swr" secondAttribute="top" id="DpM-BM-yjB"/>
+                                    <constraint firstItem="C4O-G7-OYp" firstAttribute="leading" secondItem="mgh-zX-Swr" secondAttribute="leading" id="Jhm-VX-lmB"/>
+                                    <constraint firstAttribute="bottom" secondItem="C4O-G7-OYp" secondAttribute="bottom" id="Kk3-5X-MKg"/>
+                                    <constraint firstAttribute="trailing" secondItem="C4O-G7-OYp" secondAttribute="trailing" id="W16-zr-PkJ"/>
                                 </constraints>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="NNk-es-Yee" userLabel="Email Stack View">
-                                <rect key="frame" x="30" y="138" width="354" height="36"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="이메일" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="eyZ-QZ-8BJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="4Aj-db-m2J"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                    </textField>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAn-ML-9Zr" customClass="PaddingLabel" customModule="Sprout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" systemColor="systemRedColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="inset">
-                                                <size key="value" width="4" height="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="j7x-pq-4p0" userLabel="PWD Stack View">
-                                <rect key="frame" x="30" y="184" width="354" height="36"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oCW-hd-arc">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="VTy-zG-ePA"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                    </textField>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZp-GJ-xAg" customClass="PaddingLabel" customModule="Sprout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" systemColor="systemRedColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="inset">
-                                                <size key="value" width="4" height="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ecI-ay-dnu" userLabel="PWD Check Stack View">
-                                <rect key="frame" x="30" y="230" width="354" height="36"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호 확인" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oRM-O7-5GH">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="8C4-nR-seh"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                    </textField>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdh-DX-rcG" customClass="PaddingLabel" customModule="Sprout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" systemColor="systemRedColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="inset">
-                                                <size key="value" width="4" height="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="IF6-gs-O67" userLabel="Nickname Stack View">
-                                <rect key="frame" x="30" y="276" width="354" height="36"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="닉네임" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LOW-JC-eqh">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="04g-Kl-1Vv"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                    </textField>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vN-OG-Pnv" customClass="PaddingLabel" customModule="Sprout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" systemColor="systemRedColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="size" keyPath="inset">
-                                                <size key="value" width="4" height="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                                <connections>
+                                    <outlet property="delegate" destination="E56-s5-WOF" id="vca-gn-fue"/>
+                                </connections>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxO-nD-F7W">
-                                <rect key="frame" x="30" y="692" width="354" height="48"/>
-                                <color key="backgroundColor" name="SignatureNWhite"/>
+                                <rect key="frame" x="24" y="688" width="366" height="52"/>
+                                <color key="backgroundColor" name="Signature"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="ufl-1s-mwB"/>
+                                    <constraint firstAttribute="height" constant="52" id="ufl-1s-mwB"/>
                                 </constraints>
                                 <state key="normal" title="회원가입 완료">
-                                    <color key="titleColor" name="WhiteNSignature"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4q-6E-IEE">
-                                <rect key="frame" x="217" y="80" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="2rD-cM-XrO"/>
-                                    <constraint firstAttribute="height" constant="40" id="wU5-gF-GCr"/>
-                                </constraints>
-                                <state key="normal" image="Profile_Camera"/>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pqa-9p-y6z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="pqa-9p-y6z" firstAttribute="trailing" secondItem="IF6-gs-O67" secondAttribute="trailing" constant="30" id="1Wq-Ke-nDt"/>
-                            <constraint firstItem="ecI-ay-dnu" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" constant="30" id="1eD-4V-A0v"/>
-                            <constraint firstItem="f4q-6E-IEE" firstAttribute="leading" secondItem="NfS-iq-Qrk" secondAttribute="trailing" constant="-30" id="3CC-OI-AmE"/>
-                            <constraint firstItem="j7x-pq-4p0" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" constant="30" id="4hK-da-fBF"/>
-                            <constraint firstItem="NfS-iq-Qrk" firstAttribute="top" secondItem="pqa-9p-y6z" secondAttribute="top" constant="30" id="5Aw-PK-kj0"/>
-                            <constraint firstItem="pqa-9p-y6z" firstAttribute="trailing" secondItem="j7x-pq-4p0" secondAttribute="trailing" constant="30" id="5bM-7Q-kMp"/>
-                            <constraint firstItem="j7x-pq-4p0" firstAttribute="top" secondItem="NNk-es-Yee" secondAttribute="bottom" constant="10" id="7bx-jl-rV2"/>
-                            <constraint firstItem="NfS-iq-Qrk" firstAttribute="centerX" secondItem="pqa-9p-y6z" secondAttribute="centerX" id="8Pr-33-9dx"/>
-                            <constraint firstItem="NNk-es-Yee" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" constant="30" id="Hu8-5i-qkE"/>
-                            <constraint firstItem="f4q-6E-IEE" firstAttribute="bottom" secondItem="NfS-iq-Qrk" secondAttribute="bottom" constant="10" id="K0P-yW-nqT"/>
-                            <constraint firstItem="pqa-9p-y6z" firstAttribute="trailing" secondItem="NNk-es-Yee" secondAttribute="trailing" constant="30" id="X0K-UZ-Ajk"/>
-                            <constraint firstItem="FxO-nD-F7W" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" constant="30" id="d6I-rp-8g9"/>
+                            <constraint firstItem="C4O-G7-OYp" firstAttribute="width" secondItem="pqa-9p-y6z" secondAttribute="width" id="AMk-z8-awc"/>
+                            <constraint firstItem="FxO-nD-F7W" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" constant="24" id="d6I-rp-8g9"/>
                             <constraint firstItem="pqa-9p-y6z" firstAttribute="bottom" secondItem="FxO-nD-F7W" secondAttribute="bottom" constant="30" id="fx2-t4-QMA"/>
-                            <constraint firstItem="ecI-ay-dnu" firstAttribute="top" secondItem="j7x-pq-4p0" secondAttribute="bottom" constant="10" id="i2p-tr-TLO"/>
-                            <constraint firstItem="IF6-gs-O67" firstAttribute="top" secondItem="ecI-ay-dnu" secondAttribute="bottom" constant="10" id="kPV-Ig-zhn"/>
-                            <constraint firstItem="IF6-gs-O67" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" constant="30" id="ncm-zd-FdQ"/>
-                            <constraint firstItem="pqa-9p-y6z" firstAttribute="trailing" secondItem="FxO-nD-F7W" secondAttribute="trailing" constant="30" id="qD5-IL-zYj"/>
-                            <constraint firstItem="NNk-es-Yee" firstAttribute="top" secondItem="NfS-iq-Qrk" secondAttribute="bottom" constant="28" id="r4y-7v-YZO"/>
-                            <constraint firstItem="pqa-9p-y6z" firstAttribute="trailing" secondItem="ecI-ay-dnu" secondAttribute="trailing" constant="30" id="yd4-Vb-90d"/>
+                            <constraint firstItem="pqa-9p-y6z" firstAttribute="bottom" secondItem="mgh-zX-Swr" secondAttribute="bottom" id="iAp-dc-YzS"/>
+                            <constraint firstItem="pqa-9p-y6z" firstAttribute="trailing" secondItem="FxO-nD-F7W" secondAttribute="trailing" constant="24" id="qD5-IL-zYj"/>
+                            <constraint firstItem="mgh-zX-Swr" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" id="rs5-Ft-2Fz"/>
+                            <constraint firstItem="mgh-zX-Swr" firstAttribute="top" secondItem="pqa-9p-y6z" secondAttribute="top" id="t2I-Jt-3wZ"/>
+                            <constraint firstItem="pqa-9p-y6z" firstAttribute="trailing" secondItem="mgh-zX-Swr" secondAttribute="trailing" id="xhc-PK-70o"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="회원가입" id="wEX-nn-erP">
@@ -476,16 +371,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="completeButton" destination="FxO-nD-F7W" id="qrZ-sO-6Q4"/>
-                        <outlet property="emailAlertLabel" destination="ZAn-ML-9Zr" id="me7-H9-A4e"/>
-                        <outlet property="emailTextField" destination="eyZ-QZ-8BJ" id="JS9-lz-IaA"/>
-                        <outlet property="nickNameAlertLabel" destination="9vN-OG-Pnv" id="f8w-QD-rYt"/>
-                        <outlet property="nickNameTextField" destination="LOW-JC-eqh" id="KaQ-jG-KeZ"/>
-                        <outlet property="profileButton" destination="f4q-6E-IEE" id="ig4-XF-res"/>
-                        <outlet property="profileImage" destination="NfS-iq-Qrk" id="9rt-rH-IBC"/>
-                        <outlet property="pwdAlertLabel" destination="vZp-GJ-xAg" id="vVr-Ko-1cL"/>
-                        <outlet property="pwdCheckAlertLabel" destination="mdh-DX-rcG" id="uPo-sf-cp1"/>
-                        <outlet property="pwdCheckTextField" destination="oRM-O7-5GH" id="MlI-Oy-M03"/>
-                        <outlet property="pwdTextField" destination="oCW-hd-arc" id="q7o-Im-9mO"/>
+                        <outlet property="completeButtonBottomAnchor" destination="fx2-t4-QMA" id="DkA-zk-DNu"/>
+                        <outlet property="stackView" destination="C4O-G7-OYp" id="DrT-n9-iNk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sco-Jb-d1h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -493,12 +380,6 @@
             <point key="canvasLocation" x="1205.7971014492755" y="806.91964285714278"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="9vN-OG-Pnv"/>
-        <designable name="ZAn-ML-9Zr"/>
-        <designable name="mdh-DX-rcG"/>
-        <designable name="vZp-GJ-xAg"/>
-    </designables>
     <resources>
         <image name="Login_FaceBook" width="32" height="32"/>
         <image name="Login_Google" width="32" height="32"/>
@@ -506,12 +387,13 @@
         <image name="Login_Naver" width="32" height="32"/>
         <image name="Navi_Back" width="32" height="32"/>
         <image name="Navi_Close" width="20" height="20"/>
-        <image name="Profile_Camera" width="40" height="40"/>
         <image name="SignUp_Mentee" width="128" height="128"/>
         <image name="SignUp_Mentor" width="128" height="128"/>
-        <image name="User_Guest" width="25" height="25"/>
         <namedColor name="BlackNWhite">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Signature">
+            <color red="0.41960784313725491" green="0.81568627450980391" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SignatureNWhite">
             <color red="0.41960784313725491" green="0.81568627450980391" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -521,9 +403,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -25,10 +25,10 @@ extension Reactive where Base: DatabaseReference {
             
             self.base.child("user_information").updateChildValues(["mentor":userDict]) { (error, ref) in
                 if let error = error {
-                    DEBUG_LOG("Database User Information updateChildValues: \(error.localizedDescription)")
+                    //DEBUG_LOG("Database User Information updateChildValues: \(error.localizedDescription)")
                     observer.onError(error)
                 } else {
-                    DEBUG_LOG("Database User Information Upload Success")
+                    //DEBUG_LOG("Database User Information Upload Success")
                     observer.onNext(true)
                     observer.onCompleted()
                 }

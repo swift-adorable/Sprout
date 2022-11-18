@@ -8,28 +8,17 @@
 
 import UIKit
 import RxSwift
+import RxKeyboard
 import Kingfisher
 
 class SignUpViewController: BaseViewController {
     
-    @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var profileButton: UIButton!
-    
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var emailAlertLabel: PaddingLabel!
-    
-    @IBOutlet weak var pwdTextField: UITextField!
-    @IBOutlet weak var pwdAlertLabel: PaddingLabel!
-    
-    @IBOutlet weak var pwdCheckTextField: UITextField!
-    @IBOutlet weak var pwdCheckAlertLabel: PaddingLabel!
-    
-    @IBOutlet weak var nickNameTextField: UITextField!
-    @IBOutlet weak var nickNameAlertLabel: PaddingLabel!
-    
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var completeButtonBottomAnchor: NSLayoutConstraint!
     
-    var photoModelSubject: BehaviorSubject<[PostPhotoModel]> = BehaviorSubject(value: [])
+    var photo: BehaviorSubject<[Photo]> = BehaviorSubject(value: [])
+    private var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Unknown, ""))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +31,12 @@ class SignUpViewController: BaseViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        let color: UIColor = .signatureNWhite
+//        let color: UIColor = .signatureNWhite
         
-        [emailTextField, pwdTextField, pwdCheckTextField, nickNameTextField]
-            .forEach { $0.layer.borderColor = color.cgColor }
+//        [emailTextField, pwdTextField, pwdCheckTextField, nickNameTextField]
+//            .forEach { $0.layer.borderColor = color.cgColor }
         
-        profileImage.layer.borderColor = color.withAlphaComponent(0.2).cgColor
+        //profileImage.layer.borderColor = color.withAlphaComponent(0.2).cgColor
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -59,13 +48,46 @@ class SignUpViewController: BaseViewController {
 extension SignUpViewController: ViewModel {
     func bind(viewModel: SignUpViewModel) {
         
-        input = ViewModel.Input(done: completeButton.rx.tap.asObservable())
+        //MARK: ViewModel Binding
         
-        output?.resultMessage
-            .subscribe(onNext: { text in
-                DEBUG_LOG("TEST!! \(text)")
+        input = ViewModel.Input(done: completeButton.rx.tap.asObservable(),
+                                textField: textAtEndEditing)
+//                                //photo: photo)
+//
+//        output?.resultMessage
+//            .subscribe(onNext: { text in
+//                DEBUG_LOG("TEST!! \(text)")
+//            }).disposed(by: disposeBag)
+//
+//        output?.currentUserData
+//            .subscribe(onNext: { user in
+//                DEBUG_LOG("TEST!! \(user)")
+//            }).disposed(by: disposeBag)
+        
+//        output?.profileImage
+//            .asDriver(onErrorJustReturn: nil)
+//            .drive(profileImage.rx.setImage)
+//            .disposed(by: disposeBag)
+        
+        //MARK: Outlet Binding
+        
+        RxKeyboard.instance.visibleHeight
+            .skip(1)
+            .asDriver(onErrorJustReturn: .zero)
+            .drive(onNext: { [weak self] (visibleHeight) in
+                let height = visibleHeight <= .zero ? 30 : visibleHeight - 30
+                UIView.animate(withDuration: 0.4) {
+                    self?.completeButtonBottomAnchor.constant = height
+                    self?.view.layoutIfNeeded()
+                }
             }).disposed(by: disposeBag)
         
+//        profileButton.rx.tap
+//            .subscribe(onNext: { [weak self] _ in
+//                guard let `self` = self else { return }
+//                PhotoManager.shared.photo = self.photo
+//                PhotoManager.shared.showPicker(self, maxNumberOfItems: 1)
+//            }).disposed(by: disposeBag)
     }
 }
 
@@ -168,16 +190,23 @@ extension SignUpViewController: ViewModel {
 extension SignUpViewController {
     private func initializedConfigure() {
         //self.reactor = SignUpReactor()
-        let color = UIColor.signatureNWhite
+        //let color = UIColor.signatureNWhite
         //completeButton.isEnabled = false
-        completeButton.backgroundColor = color.withAlphaComponent(0.6)
+        //completeButton.backgroundColor = .signature//.withAlphaComponent(0.6)
         completeButton.layer.addBasicBorder(color: .clear, width: 0.5, cornerRadius: 5)
-        emailTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
-        pwdTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
-        pwdCheckTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
-        nickNameTextField.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5)
-        profileImage.layer.addBasicBorder(color: color.withAlphaComponent(0.2), width: 2, cornerRadius: 27)
+        
+//        [emailTextField, pwdTextField, pwdCheckTextField, nickNameTextField]
+//            .forEach { $0.layer.addBasicBorder(color: color, width: 0.5, cornerRadius: 5) }
+        
+        //profileImage.layer.addBasicBorder(color: color.withAlphaComponent(0.2), width: 2, cornerRadius: 27)
+        
+        SignUpInputType.allCases.forEach { item in
+            let partView = SignUpPartView(frame: CGRect(x: 0, y: 0, width: APP_WIDTH(), height: 84))
+            partView.textAtEndEditing = self.textAtEndEditing
+            partView.update(item)
+            stackView.addArrangedSubview(partView)
+        }
 
     }
+    
 }
-

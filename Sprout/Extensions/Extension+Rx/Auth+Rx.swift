@@ -21,7 +21,7 @@ extension Reactive where Base: Auth {
         return Observable.create { observer in
             self.base.signIn(withEmail: email, password: password) { (result, error) in
                 if let error = error {
-                    DEBUG_LOG("Auth SignIn User Email failed: \(error.localizedDescription)")
+                    //DEBUG_LOG("Auth SignIn User Email failed: \(error.localizedDescription)")
                     observer.onError(error)
                 } else if result?.user != nil {
                     observer.onNext(true)
@@ -37,10 +37,10 @@ extension Reactive where Base: Auth {
         return Observable.create { observer in
             self.base.createUser(withEmail: email, password: password) { auth, error in
                 if let error = error {
-                    DEBUG_LOG("Auth Create User failed: \(error.localizedDescription)")
+                    //DEBUG_LOG("Auth Create User failed: \(error.localizedDescription)")
                     observer.onError(error)
                 } else if let auth = auth {
-                    DEBUG_LOG("Auth Create User Success")
+                    //DEBUG_LOG("Auth Create User Success")
                     observer.onNext(auth)
                     observer.onCompleted()
                 }
