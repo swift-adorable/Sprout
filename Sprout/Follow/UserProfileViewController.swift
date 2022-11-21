@@ -112,13 +112,26 @@ extension UserProfileViewController {
             .drive(onNext: { [weak self] isEndDrag in
                 guard let `self` = self else { return }
                 if isEndDrag {
-                    if self.profileImageViewHeight.constant >= self.imageMaxHeight * 1.2 {
-                        self.profileImageViewHeight.constant = self.imageMaxHeight
-                        self.profileImageView.setNeedsUpdateConstraints()
+                    self.isTappedMenu = true
+                    let imageViewHeight = self.profileImageViewHeight.constant
+                    let imageMaxHeight = self.imageMaxHeight
+                    self.profileImageView.setNeedsUpdateConstraints()
+                    if imageViewHeight >= imageMaxHeight {
                         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7,
                                        initialSpringVelocity: 0.5, options: [.curveLinear], animations: {
+                            self.profileImageViewHeight.constant = imageMaxHeight
                             self.view.layoutIfNeeded()
                         }, completion: nil)
+                    } else if imageViewHeight >= imageMaxHeight * 0.5 && imageViewHeight < imageMaxHeight {
+                        UIView.animate(withDuration: 0.4, delay: 0) {
+                            self.profileImageViewHeight.constant = self.imageMaxHeight
+                            self.view.layoutIfNeeded()
+                        }
+                    } else if imageViewHeight < imageMaxHeight * 0.5 {
+                        UIView.animate(withDuration: 0.4, delay: 0) {
+                            self.profileImageViewHeight.constant = self.imageMinHeight
+                            self.view.layoutIfNeeded()
+                        }
                     }
                 } else {
                     self.isTappedMenu = false

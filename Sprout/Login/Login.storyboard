@@ -170,7 +170,7 @@
                                                     <color key="titleColor" name="SignatureNWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="oUA-y1-8ki" kind="push" id="yM7-4B-REM"/>
+                                                    <segue destination="oUA-y1-8ki" kind="show" id="yM7-4B-REM"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRF-3g-MMv">
@@ -183,7 +183,7 @@
                                                     <color key="titleColor" name="SignatureNWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="HHX-ej-hDh" kind="push" id="WUl-64-TDr"/>
+                                                    <segue destination="HHX-ej-hDh" kind="show" id="WUl-64-TDr"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDr-mM-RcE">
@@ -280,7 +280,7 @@
                                         <rect key="frame" x="0.0" y="390" width="414" height="380"/>
                                         <state key="normal" image="SignUp_Mentee"/>
                                         <connections>
-                                            <segue destination="E56-s5-WOF" kind="push" id="Zpo-wh-yVC"/>
+                                            <segue destination="E56-s5-WOF" kind="show" id="Zpo-wh-yVC"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -321,7 +321,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgh-zX-Swr">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="770"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="688"/>
                                 <subviews>
                                     <stackView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="200" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="C4O-G7-OYp">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
@@ -330,7 +330,7 @@
                                 <constraints>
                                     <constraint firstItem="C4O-G7-OYp" firstAttribute="top" secondItem="mgh-zX-Swr" secondAttribute="top" id="DpM-BM-yjB"/>
                                     <constraint firstItem="C4O-G7-OYp" firstAttribute="leading" secondItem="mgh-zX-Swr" secondAttribute="leading" id="Jhm-VX-lmB"/>
-                                    <constraint firstAttribute="bottom" secondItem="C4O-G7-OYp" secondAttribute="bottom" id="Kk3-5X-MKg"/>
+                                    <constraint firstAttribute="bottom" secondItem="C4O-G7-OYp" secondAttribute="bottom" constant="6" id="Kk3-5X-MKg"/>
                                     <constraint firstAttribute="trailing" secondItem="C4O-G7-OYp" secondAttribute="trailing" id="W16-zr-PkJ"/>
                                 </constraints>
                             </scrollView>
@@ -351,7 +351,7 @@
                             <constraint firstItem="C4O-G7-OYp" firstAttribute="width" secondItem="pqa-9p-y6z" secondAttribute="width" id="AMk-z8-awc"/>
                             <constraint firstItem="FxO-nD-F7W" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" constant="24" id="d6I-rp-8g9"/>
                             <constraint firstItem="pqa-9p-y6z" firstAttribute="bottom" secondItem="FxO-nD-F7W" secondAttribute="bottom" constant="30" id="fx2-t4-QMA"/>
-                            <constraint firstItem="pqa-9p-y6z" firstAttribute="bottom" secondItem="mgh-zX-Swr" secondAttribute="bottom" id="iAp-dc-YzS"/>
+                            <constraint firstItem="FxO-nD-F7W" firstAttribute="top" secondItem="mgh-zX-Swr" secondAttribute="bottom" id="iAp-dc-YzS"/>
                             <constraint firstItem="pqa-9p-y6z" firstAttribute="trailing" secondItem="FxO-nD-F7W" secondAttribute="trailing" constant="24" id="qD5-IL-zYj"/>
                             <constraint firstItem="mgh-zX-Swr" firstAttribute="leading" secondItem="pqa-9p-y6z" secondAttribute="leading" id="rs5-Ft-2Fz"/>
                             <constraint firstItem="mgh-zX-Swr" firstAttribute="top" secondItem="pqa-9p-y6z" secondAttribute="top" id="t2I-Jt-3wZ"/>

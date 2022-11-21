@@ -39,7 +39,7 @@ class MainViewController: BaseViewController {
         
         buttonBind()
         
-        self.readFile(fileName: "City", fileType: "txt")
+        //readFile(fileName: "City", fileType: "txt")
         
     }
     
@@ -129,34 +129,34 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension MainViewController {
-    
-    func readFile(fileName: String, fileType: String) {
-        if let filePath = Bundle.main.path(forResource: fileName, ofType: fileType) {
-            do {
-                
-                let content = try String(contentsOfFile: filePath, encoding: .utf8)
-                let parsedFile: [String] = content.components(separatedBy: "\n").map{ $0.replacingOccurrences(of: "\r", with: "") } //띄어쓰기 구분
-                var bufferFileData = parsedFile.map { $0.components(separatedBy: ",").uniques }
-                bufferFileData = bufferFileData.filter { $0.count > 2 }
-                
-                bufferFileData.map { data in
-                    data.forEach {
-                        if $0.contains("읍") || $0.contains("면") {
-                            
-                        }
-                        
-                    }
-                }
-                
-            } catch(let error) {
-                DEBUG_LOG(error.localizedDescription)
-            }
-        } else {
-            DEBUG_LOG("File dosen't exist!!")
-        }
-        
-        
-    }
-    
-}
+//extension MainViewController {
+//
+//    func readFile(fileName: String, fileType: String) {
+//        if let filePath = Bundle.main.path(forResource: fileName, ofType: fileType) {
+//            do {
+//
+//                let content = try String(contentsOfFile: filePath, encoding: .utf8)
+//                let parsedFile: [String] = content.components(separatedBy: "\n").map{ $0.replacingOccurrences(of: "\r", with: "") } //띄어쓰기 구분
+//                var bufferFileData = parsedFile.map { $0.components(separatedBy: ",").uniques }
+//                bufferFileData = bufferFileData.filter { $0.count > 2 }
+//
+//                bufferFileData.map { data in
+//                    data.forEach {
+//                        if $0.contains("읍") || $0.contains("면") {
+//
+//                        }
+//
+//                    }
+//                }
+//
+//            } catch(let error) {
+//                DEBUG_LOG(error.localizedDescription)
+//            }
+//        } else {
+//            DEBUG_LOG("File dosen't exist!!")
+//        }
+//
+//
+//    }
+//
+//}

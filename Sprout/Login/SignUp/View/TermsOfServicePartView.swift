@@ -11,6 +11,7 @@ import RxSwift
 
 protocol TermsOfServicePartViewDelegate: AnyObject {
     func isCheckedButton(type: TermsOfServiceType, isSelected: Bool)
+    func showDetail(type: TermsOfServiceType)
 }
 
 class TermsOfServicePartView: UIView {
@@ -82,6 +83,10 @@ extension TermsOfServicePartView {
         showDetailButton.isHidden = type.isHiddenShowDetail
     }
     
+    func updateCheckButtonState(_ isSelected: Bool) {
+        checkButton.isSelected = isSelected
+    }
+    
     fileprivate func bind() {
         checkButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -90,12 +95,11 @@ extension TermsOfServicePartView {
                 let isSelected = self?.checkButton.isSelected ?? false
                 delegate.isCheckedButton(type: type, isSelected: isSelected)
             }).disposed(by: disposeBag)
-    }
-}
-
-extension TermsOfServicePartView: TermsOfServiceViewDelegate {
-    func checkedAllAgree(isSelected: Bool) {
-        DEBUG_LOG("TEST!! type: \(self.type), isSelected: \(isSelected)")
-        self.checkButton.isSelected = isSelected
+        
+        showDetailButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let delegate = self?.delegate, let type = self?.type else { return }
+                delegate.showDetail(type: type)
+            }).disposed(by: disposeBag)
     }
 }

@@ -9,10 +9,6 @@
 import Foundation
 import RxSwift
 
-protocol TermsOfServiceViewDelegate: AnyObject {
-    func checkedAllAgree(isSelected: Bool)
-}
-
 class TermsOfServiceView: UIView {
     
     //MARK: UI Property
@@ -65,8 +61,6 @@ class TermsOfServiceView: UIView {
     //MARK: Value Property
     private var isChecked: [TermsOfServiceType: Bool] = [:]
     
-    weak var delegate: TermsOfServiceViewDelegate?
-    
     private var disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
@@ -115,7 +109,6 @@ extension TermsOfServiceView {
             //adding partview
             let partView = TermsOfServicePartView(frame: CGRect(x: 0, y: 0, width: APP_WIDTH(), height: 34))
             partView.delegate = self
-            self.delegate = partView
             partView.update(type)
             partView.translatesAutoresizingMaskIntoConstraints = false
             partView.heightAnchor.constraint(equalToConstant: 34).isActive = true
@@ -132,12 +125,22 @@ extension TermsOfServiceView {
     
     fileprivate func bind() {
         checkButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                guard let delegate = self?.delegate else { return }
-                self?.checkButton.isSelected.toggle()
-                let isSelected = self?.checkButton.isSelected ?? false
-                delegate.checkedAllAgree(isSelected: isSelected)
-            }).disposed(by: disposeBag)
+            .asDriver(onErrorJustReturn: ())
+            .drive { [weak self] _ in
+                guard let `self` = self else { return }
+                self.checkButton.isSelected.toggle()
+                let isSelected = self.checkButton.isSelected
+                
+                self.isChecked.forEach { (key, value) in
+                    self.isChecked.updateValue(isSelected, forKey: key)
+                }
+                
+                self.verticalStackView.subviews.forEach { subview in
+                    if let partview = subview as? TermsOfServicePartView {
+                        partview.updateCheckButtonState(isSelected)
+                    }
+                }
+            }.disposed(by: disposeBag)
     }
     
 }
@@ -146,5 +149,9 @@ extension TermsOfServiceView: TermsOfServicePartViewDelegate {
     func isCheckedButton(type: TermsOfServiceType, isSelected: Bool) {
         isChecked.updateValue(isSelected, forKey: type)
         checkButton.isSelected = !isChecked.values.contains(false)
+    }
+    
+    func showDetail(type: TermsOfServiceType) {
+        DEBUG_LOG("Terms Of Service (type: \(type)) show detail in webView")
     }
 }

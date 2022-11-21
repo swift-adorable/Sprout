@@ -22,14 +22,6 @@ class BaseViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         DEBUG_LOG("Dispose of any resources that can be recreated.")
@@ -43,7 +35,8 @@ extension BaseViewController: UIGestureRecognizerDelegate {
         
         self.navigationController?.navigationBar.tintColor = .signatureNWhite
         self.navigationController?.navigationBar.topItem?.title = "새싹"
-
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithTransparentBackground()
@@ -69,6 +62,7 @@ extension BaseViewController: UIGestureRecognizerDelegate {
 extension BaseViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollContentOffset.onNext(scrollView.contentOffset)
+        scrollIsEndDrag.onNext(false)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -76,7 +70,9 @@ extension BaseViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        //scrollIsEndDrag.onNext(true)
+        if !decelerate {
+            scrollIsEndDrag.onNext(true)
+        }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -113,12 +109,12 @@ extension Reactive where Base: BaseViewController {
 extension BaseViewController {
     fileprivate func hideKeyboardWhenTappedAround() {
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dismissKeyboardWhenDownScroll))
-        panGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(panGesture)
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dismissKeyboardWhenDownScroll))
+//        panGesture.cancelsTouchesInView = false
+//        view.addGestureRecognizer(panGesture)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
+        //tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
         
     }
