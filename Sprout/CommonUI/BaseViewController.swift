@@ -11,8 +11,9 @@ import RxSwift
 
 class BaseViewController: UIViewController {
 
-    lazy var scrollContentOffset: PublishSubject<CGPoint> = PublishSubject()
-    lazy var scrollIsEndDrag: PublishSubject<Bool> = PublishSubject()
+    lazy var scrollContentOffset: PublishSubject<(scrollView: UIScrollView?, offset: CGPoint)> = PublishSubject()
+    lazy var scrollIsEndDrag: PublishSubject<(scrollView: UIScrollView?, scrollIsEnd: Bool)> = PublishSubject()
+    lazy var isDragging: Bool = false
     
     var disposeBag: DisposeBag = DisposeBag()
     
@@ -61,22 +62,24 @@ extension BaseViewController: UIGestureRecognizerDelegate {
 
 extension BaseViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollContentOffset.onNext(scrollView.contentOffset)
-        scrollIsEndDrag.onNext(false)
+        scrollContentOffset.onNext((scrollView, scrollView.contentOffset))
+        scrollIsEndDrag.onNext((scrollView, false))
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollIsEndDrag.onNext(true)
+        isDragging = false
+        scrollIsEndDrag.onNext((scrollView, true))
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            scrollIsEndDrag.onNext(true)
+            scrollIsEndDrag.onNext((scrollView, true))
         }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        scrollIsEndDrag.onNext(false)
+        isDragging = true
+        scrollIsEndDrag.onNext((scrollView, false))
     }
     
 }
@@ -114,7 +117,7 @@ extension BaseViewController {
 //        view.addGestureRecognizer(panGesture)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        //tapGesture.cancelsTouchesInView = false
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
         
     }

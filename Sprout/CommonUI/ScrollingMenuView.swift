@@ -182,6 +182,7 @@ extension ScrollingMenuView {
     }
     
     func changeScrollBarOffset(with offset: CGPoint?, currentIndex index: Int) {
+
         if let offset = offset {
             let xPosition = offset.x - APP_WIDTH()
             let isDraggedRight: Bool = xPosition < 0 // 오른쪽으로 드래그 시 true, 왼쪽으로 드래그 시 false

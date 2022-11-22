@@ -29,8 +29,6 @@ class UserProfileViewController: BaseViewController {
     
     var currentIndex: BehaviorRelay<Int> = BehaviorRelay(value: 0)
     
-    private var isTappedMenu: Bool = false
-    
     private let imageMinHeight: CGFloat = 38
     private var imageMaxHeight: CGFloat = APP_HEIGHT() * 0.3
     private var latestContentOffSet: CGPoint = .zero
@@ -47,8 +45,6 @@ class UserProfileViewController: BaseViewController {
         pageViewController.view.frame = pageContainerView.bounds
     }
     
-
-
 }
 
 extension UserProfileViewController {
@@ -56,12 +52,15 @@ extension UserProfileViewController {
     private func bind() {
         
         currentIndex
-            .subscribe(onNext: { [weak self] (index) in
+            .asDriver(onErrorJustReturn: 0)
+            .drive { [weak self] (index) in
                 guard let `self` = self else {return}
-                
-                self.scrollingMenuView.changeTextColorAtIndex(selectedIndex: index)
-                self.scrollingMenuView.changeScrollBarOffset(with: nil, currentIndex: index)
-                self.scrollingMenuView.changeScrollPosition(self.scrollingMenuView.getLabelFrame(index))
+                UIView.animate(withDuration: 0.3, delay: 0) {
+                    self.scrollingMenuView.changeTextColorAtIndex(selectedIndex: index)
+                    self.scrollingMenuView.changeScrollBarOffset(with: nil, currentIndex: index)
+                    self.scrollingMenuView.changeScrollPosition(self.scrollingMenuView.getLabelFrame(index))
+                    self.view.layoutIfNeeded()
+                }
                 
                 if var firstViewController = self.pageViewController.viewControllers?.first,
                    let currentIndex = self.pages.firstIndex(of: firstViewController) {
@@ -77,66 +76,91 @@ extension UserProfileViewController {
                                                                    completion: nil)
                     }
                 }
-            }).disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
         
         scrollContentOffset
-            .asDriver(onErrorJustReturn: .zero)
-            .drive(onNext: { [weak self] (offset) in
-                guard let `self` = self else { return }
+            .asDriver(onErrorJustReturn: (nil, .zero))
+            .drive { [weak self] (scrollView, offset) in
+                guard let `self` = self, let scrollView = scrollView else { return }
+
+                defer {
+                    self.latestContentOffSet = offset
+                }
                 
+                //MARK: Horizontal scroll
+
                 if self.latestContentOffSet.x != offset.x && self.latestContentOffSet.x != APP_WIDTH() {
-                    if !self.isTappedMenu {
+
+                    if self.isDragging {
                         let index = self.currentIndex.value
                         self.scrollingMenuView.changeScrollBarOffset(with: offset, currentIndex: index)
                     }
 
+                //MARK: Vertical scroll
+
                 } else if self.latestContentOffSet.y != offset.y {
-                    var height = self.profileImageViewHeight.constant - offset.y
+                    let scrollOffsetY = scrollView.contentOffset.y
+                    let scrollDiff = scrollOffsetY - self.latestContentOffSet.y
+                    let absoluteBottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
                     
-                    if height < self.imageMinHeight {
-                        height = self.imageMinHeight
+                    let isScrollingUp = scrollDiff > 0 && scrollOffsetY > 0
+                    let isScrollingDown = scrollDiff < 0 && scrollOffsetY < absoluteBottom
+                    
+                    if self.canAnimateHeader(scrollView) {
+                        var height = self.profileImageViewHeight.constant
+
+                        if isScrollingUp {
+                            height = max(self.imageMinHeight, self.profileImageViewHeight.constant - abs(scrollDiff))
+
+                        } else if isScrollingDown {
+                            height = min(self.imageMaxHeight * 1.4, self.profileImageViewHeight.constant + abs(scrollDiff))
+                        }
                         
-                    } else if height > self.imageMaxHeight * 1.4 {
-                        height = self.imageMaxHeight * 1.4
+                        if height != self.profileImageViewHeight.constant {
+                            self.profileImageViewHeight.constant = height
+                            self.updateHeader()
+                        }
                     }
                     
-                    self.profileImageViewHeight.constant = height
                 }
                 
-                self.latestContentOffSet = offset
-                
-            }).disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
         
         scrollIsEndDrag
-            .asDriver(onErrorJustReturn: true)
-            .drive(onNext: { [weak self] isEndDrag in
+            .asDriver(onErrorJustReturn: (nil, false))
+            .drive { [weak self] (scrollView, isEndDrag) in
                 guard let `self` = self else { return }
                 if isEndDrag {
-                    self.isTappedMenu = true
+                    
                     let imageViewHeight = self.profileImageViewHeight.constant
                     let imageMaxHeight = self.imageMaxHeight
                     self.profileImageView.setNeedsUpdateConstraints()
-                    if imageViewHeight >= imageMaxHeight {
+                    
+                    if imageMaxHeight <= imageViewHeight {
                         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7,
                                        initialSpringVelocity: 0.5, options: [.curveLinear], animations: {
                             self.profileImageViewHeight.constant = imageMaxHeight
+                            self.updateHeader()
                             self.view.layoutIfNeeded()
-                        }, completion: nil)
-                    } else if imageViewHeight >= imageMaxHeight * 0.5 && imageViewHeight < imageMaxHeight {
-                        UIView.animate(withDuration: 0.4, delay: 0) {
-                            self.profileImageViewHeight.constant = self.imageMaxHeight
-                            self.view.layoutIfNeeded()
+                        })
+                    } else {
+                        var height: CGFloat = 0
+                        
+                        if (imageMaxHeight * 0.5) <= imageViewHeight && imageViewHeight < imageMaxHeight {
+                            height = self.imageMaxHeight
+                            
+                        } else {
+                            height = self.imageMinHeight
                         }
-                    } else if imageViewHeight < imageMaxHeight * 0.5 {
+                        
                         UIView.animate(withDuration: 0.4, delay: 0) {
-                            self.profileImageViewHeight.constant = self.imageMinHeight
+                            self.profileImageViewHeight.constant = height
+                            self.updateHeader()
                             self.view.layoutIfNeeded()
                         }
                     }
-                } else {
-                    self.isTappedMenu = false
                 }
-            }).disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -193,6 +217,7 @@ extension UserProfileViewController {
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageViewController.delegate = self
         pageViewController.dataSource = self
+        //pageViewController.scroll
         
         if var firstViewController = pages.first {
             firstViewController = pages[0]
@@ -224,7 +249,7 @@ extension UserProfileViewController {
 extension UserProfileViewController: ScrollingMenuViewDelegate {
     func selectedIndexWithMenuView(_ view: ScrollingMenuView, index: Int) {
         self.currentIndex.accept(index)
-        self.isTappedMenu = true
+
     }
     
     func changeScrollPosition(_ frame : CGRect) {
@@ -252,7 +277,7 @@ extension UserProfileViewController : UIPageViewControllerDelegate, UIPageViewCo
         
         if completed == true {
             if let firstViewController = pageViewController.viewControllers?.first,
-                let index = pages.firstIndex(of: firstViewController){
+                let index = pages.firstIndex(of: firstViewController) {
                 self.currentIndex.accept(index)
             }
         }
@@ -296,15 +321,33 @@ extension UserProfileViewController : UIPageViewControllerDelegate, UIPageViewCo
 
 extension UserProfileViewController: PanModalPresentable {
 
-     override var preferredStatusBarStyle: UIStatusBarStyle {
-          return .lightContent
-     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
-     var panScrollable: UIScrollView? {
-         return nil
-     }
+    var panScrollable: UIScrollView? {
+        return nil
+    }
 
-     var anchorModalToLongForm: Bool {
-          return false
-     }
+    var anchorModalToLongForm: Bool {
+        return false
+    }
+    
+}
+
+extension UserProfileViewController {
+    private func canAnimateHeader(_ scrollView: UIScrollView) -> Bool {
+        let scrollViewMaxHeight = scrollView.frame.height + self.profileImageViewHeight.constant - (imageMaxHeight / 2)
+        return scrollView.contentSize.height > scrollViewMaxHeight
+    }
+    
+    private func updateHeader() {
+        
+        let range = imageMaxHeight - imageMinHeight
+        let openAmount = profileImageViewHeight.constant - imageMinHeight
+        let percentage = openAmount / range
+        
+        profileImageView.alpha = percentage
+        
+    }
 }

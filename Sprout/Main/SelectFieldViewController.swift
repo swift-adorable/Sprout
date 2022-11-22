@@ -82,6 +82,8 @@ extension SelectFieldViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
     }
     
 }
