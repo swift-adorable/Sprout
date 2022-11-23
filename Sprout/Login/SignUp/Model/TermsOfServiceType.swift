@@ -17,6 +17,20 @@ enum TermsOfServiceType: CaseIterable {
 
 extension TermsOfServiceType {
     
+    var errorDescritionText: String {
+        switch self {
+        case .PersonalInfo:
+            return "개인정보 수집 및 이용에 동의 해주세요."
+        case .OptionalInfo:
+            return ""
+        case .TermsOfService:
+            return "이용약관 동의에 동의 해주세요."
+        case .Fourteen:
+            return "본인은 만 14세 이상 여부에 동의 해주세요."
+        
+        }
+    }
+    
     fileprivate var _descrptionText: String {
         switch self {
         case .PersonalInfo:

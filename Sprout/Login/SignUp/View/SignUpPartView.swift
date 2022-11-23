@@ -43,6 +43,21 @@ class SignUpPartView: UIView {
         return btn
     }()
     
+    private let isSecureButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(named: "password_lock"), for: .normal)
+        btn.setImage(UIImage(named: "password_unlock"), for: .selected)
+        btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        return btn
+    }()
+    
+    private let errorMessageLabel: UILabel = {
+        let lb = UILabel()
+        lb.textColor = .red
+        lb.font = .systemFont(ofSize: 12, weight: .medium)
+        return lb
+    }()
+    
     //MARK: Value Property
     private var type: SignUpInputType = .Email
     var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Email, ""))
@@ -77,33 +92,71 @@ extension SignUpPartView {
         textField.keyboardType = type.keyboardType
         textField.isSecureTextEntry = type.isSecureTextEntry
         duplicateCheckButton.isHidden = !type.isNeedsDuplicateCheck
+        isSecureButton.isHidden = type == .Email || type == .Nickname
     }
     
     fileprivate func bind() {
         
-        textField.rx.textAtEndEditing
+        let textAtEndEditing = textField.rx.textAtEndEditing.share()
+        
+        textAtEndEditing
             .subscribe(onNext: { [weak self] (text) in
                 guard let `self` = self else { return }
                 self.textAtEndEditing.onNext((self.type, text))
             })
             .disposed(by: disposeBag)
         
+        textAtEndEditing
+            .map { [weak self] (text) -> String in
+                guard let `self` = self, let text else { return "" }
+                if text.checkRegularExpression(with: self.type.regexExpressionPattern) {
+                    return ""
+                } else {
+                    return self.type.errorWithCheckRegex
+                }
+            }.asDriver(onErrorJustReturn: "")
+            .drive(errorMessageLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        isSecureButton.rx.tap.debug("")
+            .asDriver(onErrorJustReturn: ())
+            .drive { [weak self] _ in
+                self?.isSecureButton.isSelected.toggle()
+                self?.textField.isSecureTextEntry = !(self?.isSecureButton.isSelected ?? true)
+                self?.textField.becomeFirstResponder()
+            }.disposed(by: disposeBag)
+        
+
+        
     }
 }
 
 extension SignUpPartView {
     private func setupView() {
+        
         addSubview(descriptLabel)
-        connectToAnchor(child: descriptLabel, top: 16, left: 24)
+        connectToAnchor(child: descriptLabel, top: 4, left: 24)
+        descriptLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
         horizontalStackView.addArrangedSubview(textField)
         horizontalStackView.addArrangedSubview(duplicateCheckButton)
         duplicateCheckButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
         
         addSubview(horizontalStackView)
-        connectToAnchor(child: horizontalStackView, left: 26, bottom: -4, right: -26)
+        connectToAnchor(child: horizontalStackView, left: 26, right: -26)
         horizontalStackView.topAnchor.constraint(equalTo: descriptLabel.bottomAnchor, constant: 7).isActive = true
         horizontalStackView.heightAnchor.constraint(equalToConstant: 38).isActive = true
+        
+        addSubview(isSecureButton)
+        textField.connectToAnchor(child: isSecureButton, right: -10)
+        isSecureButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor).isActive = true
+        isSecureButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        isSecureButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        
+        addSubview(errorMessageLabel)
+        connectToAnchor(child: errorMessageLabel, left: 28, bottom: -4, right: -16)
+        errorMessageLabel.topAnchor.constraint(equalTo: horizontalStackView.bottomAnchor, constant: 4).isActive = true
+        errorMessageLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
         bind()
     }

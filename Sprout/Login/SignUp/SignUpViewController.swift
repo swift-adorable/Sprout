@@ -14,12 +14,14 @@ import Kingfisher
 
 class SignUpViewController: BaseViewController {
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var completeButtonBottomAnchor: NSLayoutConstraint!
     
-    var photo: BehaviorSubject<[Photo]> = BehaviorSubject(value: [])
-    var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Email, ""))
+    private var photo: BehaviorSubject<[Photo]> = BehaviorSubject(value: [])
+    private var textAtEndEditing: BehaviorSubject<(SignUpInputType, String?)> = BehaviorSubject(value: (.Email, ""))
+    private var agreementState = PublishSubject<[TermsOfServiceType: Bool]>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +44,8 @@ extension SignUpViewController: ViewModel {
         //MARK: ViewModel Binding
         
         input = ViewModel.Input(done: completeButton.rx.tap.asObservable(),
-                                textField: textAtEndEditing)
+                                textFieldText: textAtEndEditing,
+                                agreementState: agreementState)
 //                                //photo: photo)
 
         output?.resultMessage
@@ -84,24 +87,27 @@ extension SignUpViewController: ViewModel {
 }
 
 extension SignUpViewController {
+    
     private func initializedConfigure() {
         
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        
         completeButton.layer.addBasicBorder(color: .clear, width: 0.5, cornerRadius: 5)
-        
-        //profileImage.layer.addBasicBorder(color: color.withAlphaComponent(0.2), width: 2, cornerRadius: 27)
-        
+                
         SignUpInputType.allCases.forEach { item in
-            let partView = SignUpPartView(frame: CGRect(x: 0, y: 0, width: APP_WIDTH(), height: 84))
+            let partView = SignUpPartView()
             partView.textAtEndEditing = self.textAtEndEditing
             partView.update(item)
             partView.translatesAutoresizingMaskIntoConstraints = false
-            partView.heightAnchor.constraint(equalToConstant: 84).isActive = true
+            partView.heightAnchor.constraint(equalToConstant: 90).isActive = true
             stackView.addArrangedSubview(partView)
         }
 
         let termsOfServiceView = TermsOfServiceView()
+        termsOfServiceView.agreementState = self.agreementState
         stackView.addArrangedSubview(termsOfServiceView)
-        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
 }

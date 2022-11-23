@@ -80,7 +80,7 @@ extension Router {
                         anyObserver.onCompleted()
                     }else{
                         if let error = dataResponse.error {
-                            let alert: UIAlertController = UIAlertController(title: "청출어람", message: error.localizedDescription, preferredStyle: .alert)
+                            let alert: UIAlertController = UIAlertController(title: "새싹", message: error.localizedDescription, preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
 //                            App.delegate.window?.rootViewController?.present(alert, animated: true, completion: nil)
                             anyObserver.onError(error)

@@ -60,6 +60,7 @@ class TermsOfServiceView: UIView {
     
     //MARK: Value Property
     private var isChecked: [TermsOfServiceType: Bool] = [:]
+    var agreementState = PublishSubject<[TermsOfServiceType: Bool]>()
     
     private var disposeBag = DisposeBag()
     
@@ -119,6 +120,8 @@ extension TermsOfServiceView {
         connectToAnchor(child: verticalStackView, left: 26, bottom: 0, right: -26)
         verticalStackView.topAnchor.constraint(equalTo: seperateLine.bottomAnchor, constant: 10).isActive = true
         
+        agreementState.onNext(isChecked)
+        
         //MARK: Binding
         bind()
     }
@@ -134,7 +137,7 @@ extension TermsOfServiceView {
                 self.isChecked.forEach { (key, value) in
                     self.isChecked.updateValue(isSelected, forKey: key)
                 }
-                
+                self.agreementState.onNext(self.isChecked)
                 self.verticalStackView.subviews.forEach { subview in
                     if let partview = subview as? TermsOfServicePartView {
                         partview.updateCheckButtonState(isSelected)
@@ -149,9 +152,10 @@ extension TermsOfServiceView: TermsOfServicePartViewDelegate {
     func isCheckedButton(type: TermsOfServiceType, isSelected: Bool) {
         isChecked.updateValue(isSelected, forKey: type)
         checkButton.isSelected = !isChecked.values.contains(false)
+        agreementState.onNext(isChecked)
     }
     
     func showDetail(type: TermsOfServiceType) {
-        DEBUG_LOG("Terms Of Service (type: \(type)) show detail in webView")
+        DEBUG_LOG("TEST!! Terms Of Service (type: \(type)) show detail in webView")
     }
 }

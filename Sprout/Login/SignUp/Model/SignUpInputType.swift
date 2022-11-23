@@ -15,6 +15,38 @@ public enum SignUpInputType: CaseIterable {
     case Nickname
 }
 
+//MARK: Regex Expression
+
+extension SignUpInputType {
+    var regexExpressionPattern: String {
+        switch self {
+        case .Email:
+            return "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+        case .Password:
+            return "[A-Za-z0-9]{8,12}"
+        case .DuplicatePassword:
+            return "[A-Za-z0-9]{8,12}"
+        case .Nickname:
+            return "[A-Za-z0-9]{4,16}"
+        }
+    }
+    
+    var errorWithCheckRegex: String {
+        switch self {
+        case .Email:
+            return "이메일 형식이 맞지 않습니다."
+        case .Password:
+            return "비밀번호 형식이 맞지 않습니다."
+        case .DuplicatePassword:
+            return "비밀번호 형식이 맞지 않습니다."
+        case .Nickname:
+            return "닉네임 형식이 맞지 않습니다."
+        }
+    }
+}
+
+//MARK: TextField UI Property.
+
 extension SignUpInputType {
     
     fileprivate var _descrptionText: String {
@@ -68,10 +100,11 @@ extension SignUpInputType {
     
 }
 
+//MARK: TextField UI Property With Interface Builder.
+
 extension SignUpInputType {
     var textContentType: UITextContentType? {
         switch self {
-            
         case .Email:
             return .emailAddress
         default:

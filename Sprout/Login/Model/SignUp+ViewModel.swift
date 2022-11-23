@@ -14,7 +14,8 @@ class SignUpViewModel: ViewModelType {
     
     struct Input {
         let done: Observable<Void>
-        let textField: Observable<(SignUpInputType, String?)>
+        let textFieldText: Observable<(SignUpInputType, String?)>
+        let agreementState: Observable<[TermsOfServiceType: Bool]>
         //let photo: Observable<[Photo]>
     }
         
@@ -31,7 +32,7 @@ class SignUpViewModel: ViewModelType {
         
     }
     
-    private var user = BehaviorSubject<User>(value: User())
+    fileprivate var user = BehaviorSubject<User>(value: User())
     
     var disposeBag = DisposeBag()
     
@@ -50,7 +51,7 @@ class SignUpViewModel: ViewModelType {
                 }
             }).disposed(by: disposeBag)
         
-        input.textField
+        input.textFieldText
             .subscribe(onNext: { [weak self] (textType, text) in
                 guard let `self` = self else { return }
                 guard var newValue = try? self.user.value() else { return }

@@ -106,12 +106,12 @@ extension API {
                     completion(data)
                     
                 } catch(let error) {
-                    DEBUG_LOG("random word error: " + error.localizedDescription )
+                    DEBUG_LOG("TEST!! random word error: " + error.localizedDescription )
                 }
                 
             } else {
                 if dataResponse.error != nil {
-                    DEBUG_LOG("random word error: " + (dataResponse.error?.localizedDescription ?? "") )
+                    DEBUG_LOG("TEST!! random word error: " + (dataResponse.error?.localizedDescription ?? "") )
                 }
             }
         }

@@ -369,6 +369,7 @@
                     <connections>
                         <outlet property="completeButton" destination="FxO-nD-F7W" id="qrZ-sO-6Q4"/>
                         <outlet property="completeButtonBottomAnchor" destination="fx2-t4-QMA" id="DkA-zk-DNu"/>
+                        <outlet property="scrollView" destination="mgh-zX-Swr" id="x8B-UY-gL6"/>
                         <outlet property="stackView" destination="C4O-G7-OYp" id="DrT-n9-iNk"/>
                     </connections>
                 </viewController>
