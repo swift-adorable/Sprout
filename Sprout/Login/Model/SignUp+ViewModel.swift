@@ -60,7 +60,7 @@ class SignUpViewModel: ViewModelType {
         textFieldTextWithUser
             .map { (arg0, user) -> (SignUpInputType, String) in
                 let textType = arg0.0
-                DEBUG_LOG("textType, text: \(arg0)")
+
                 guard let text = arg0.1 else { return (textType, "") }
                 if (textType == .DuplicatePassword) && !user.password.isEmpty && text != user.password {
                     return (textType, "비밀번호가 일치하지 않습니다.")
@@ -76,21 +76,10 @@ class SignUpViewModel: ViewModelType {
         
         textFieldTextWithUser
             .map { (arg0, user) -> User in
-                guard let text = arg0.1 else { return user }
                 let textType = arg0.0
+                guard let text = arg0.1 else { return user }
                 var newValue = user
-                switch textType {
-                case .Email:
-                    newValue.email = text
-                case .Password:
-                    newValue.password = text
-                case .Nickname:
-                    newValue.nickname = text
-                case .DuplicatePassword:
-                    newValue.rePassword = text
-                }
-                DEBUG_LOG("user: \(newValue)")
-                return newValue
+                return newValue.update(type: textType, value: text)
             }.bind(to: user)
             .disposed(by: disposeBag)
         

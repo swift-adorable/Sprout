@@ -140,6 +140,20 @@ struct User {
         nickname = ""
         userType = .None
     }
+    
+    mutating func update(type: SignUpInputType, value: String) -> User {
+        switch type {
+        case .Email:
+            self.email = value
+        case .Password:
+            self.password = value
+        case .DuplicatePassword:
+            self.rePassword = value
+        case .Nickname:
+            self.nickname = value
+        }
+        return self
+    }
 }
 
 enum UserType: String {
