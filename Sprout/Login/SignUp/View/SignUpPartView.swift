@@ -47,7 +47,7 @@ class SignUpPartView: UIView {
         let btn = UIButton()
         btn.setImage(UIImage(named: "password_lock"), for: .normal)
         btn.setImage(UIImage(named: "password_unlock"), for: .selected)
-        btn.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        btn.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
         return btn
     }()
     
@@ -95,27 +95,21 @@ extension SignUpPartView {
         isSecureButton.isHidden = type == .Email || type == .Nickname
     }
     
+    func isMatchType(_ type: SignUpInputType) -> Bool {
+        return type == self.type
+    }
+    
+    func showErrorMessage(_ error: String) {
+        errorMessageLabel.text = error
+    }
+    
     fileprivate func bind() {
         
-        let textAtEndEditing = textField.rx.textAtEndEditing.share()
-        
-        textAtEndEditing
+        textField.rx.textAtEndEditing
             .subscribe(onNext: { [weak self] (text) in
                 guard let `self` = self else { return }
                 self.textAtEndEditing.onNext((self.type, text))
             })
-            .disposed(by: disposeBag)
-        
-        textAtEndEditing
-            .map { [weak self] (text) -> String in
-                guard let `self` = self, let text else { return "" }
-                if text.checkRegularExpression(with: self.type.regexExpressionPattern) {
-                    return ""
-                } else {
-                    return self.type.errorWithCheckRegex
-                }
-            }.asDriver(onErrorJustReturn: "")
-            .drive(errorMessageLabel.rx.text)
             .disposed(by: disposeBag)
         
         isSecureButton.rx.tap.debug("")
@@ -125,8 +119,6 @@ extension SignUpPartView {
                 self?.textField.isSecureTextEntry = !(self?.isSecureButton.isSelected ?? true)
                 self?.textField.becomeFirstResponder()
             }.disposed(by: disposeBag)
-        
-
         
     }
 }
@@ -148,10 +140,10 @@ extension SignUpPartView {
         horizontalStackView.heightAnchor.constraint(equalToConstant: 38).isActive = true
         
         addSubview(isSecureButton)
-        textField.connectToAnchor(child: isSecureButton, right: -10)
+        textField.connectToAnchor(child: isSecureButton, right: -6)
         isSecureButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor).isActive = true
-        isSecureButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
-        isSecureButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        isSecureButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        isSecureButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         addSubview(errorMessageLabel)
         connectToAnchor(child: errorMessageLabel, left: 28, bottom: -4, right: -16)

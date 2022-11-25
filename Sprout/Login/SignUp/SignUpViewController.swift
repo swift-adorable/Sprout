@@ -52,6 +52,18 @@ extension SignUpViewController: ViewModel {
             .subscribe(onNext: { text in
                 DEBUG_LOG("TEST!! output?.resultMessage: \(text)")
             }).disposed(by: disposeBag)
+        
+        output?.errorMessage
+            .asDriver(onErrorJustReturn: (.Email, ""))
+            .drive { [weak self] (type, error) in
+                guard let `self` = self, let error else { return }
+                guard let inputView = self.stackView.subviews
+                    .filter ({ $0 is SignUpPartView })
+                    .filter({ ($0 as! SignUpPartView).isMatchType(type) }).first as? SignUpPartView else { return }
+                
+                inputView.showErrorMessage(error)
+                
+            }.disposed(by: disposeBag)
 
         output?.currentUserData
             .subscribe(onNext: { user in

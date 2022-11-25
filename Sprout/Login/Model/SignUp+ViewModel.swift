@@ -22,10 +22,12 @@ class SignUpViewModel: ViewModelType {
     struct Output {
         let resultMessage: BehaviorSubject<String>
         let currentUserData: BehaviorSubject<User>
+        let errorMessage: BehaviorSubject<(SignUpInputType, String?)>
         //let profileImage: BehaviorSubject<Photo?>
         
         init() {
             resultMessage = BehaviorSubject(value: "")
+            errorMessage = BehaviorSubject(value: (.Email, ""))
             currentUserData = BehaviorSubject(value: User())
             //profileImage = BehaviorSubject(value: nil)
         }
@@ -51,11 +53,32 @@ class SignUpViewModel: ViewModelType {
                 }
             }).disposed(by: disposeBag)
         
-        input.textFieldText
-            .subscribe(onNext: { [weak self] (textType, text) in
-                guard let `self` = self else { return }
-                guard var newValue = try? self.user.value() else { return }
-                let text = text ?? ""
+        let textFieldTextWithUser = input.textFieldText
+            .withLatestFrom(user) { ($0, $1) }
+            .share()
+        
+        textFieldTextWithUser
+            .map { (arg0, user) -> (SignUpInputType, String) in
+                let textType = arg0.0
+                DEBUG_LOG("textType, text: \(arg0)")
+                guard let text = arg0.1 else { return (textType, "") }
+                if (textType == .DuplicatePassword) && !user.password.isEmpty && text != user.password {
+                    return (textType, "비밀번호가 일치하지 않습니다.")
+                }
+                
+                if !text.checkRegularExpression(with: textType.regexPattern) {
+                    return (textType, textType.errorWithCheckRegex)
+                }
+                
+                return (textType, "")
+            }.bind(to: output.errorMessage)
+            .disposed(by: disposeBag)
+        
+        textFieldTextWithUser
+            .map { (arg0, user) -> User in
+                guard let text = arg0.1 else { return user }
+                let textType = arg0.0
+                var newValue = user
                 switch textType {
                 case .Email:
                     newValue.email = text
@@ -64,10 +87,12 @@ class SignUpViewModel: ViewModelType {
                 case .Nickname:
                     newValue.nickname = text
                 case .DuplicatePassword:
-                    newValue.password = text
+                    newValue.rePassword = text
                 }
-                self.user.onNext(newValue)
-            }).disposed(by: disposeBag)
+                DEBUG_LOG("user: \(newValue)")
+                return newValue
+            }.bind(to: user)
+            .disposed(by: disposeBag)
         
 //        input.photo
 //            .withLatestFrom(user) { ($0, $1) }

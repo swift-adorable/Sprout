@@ -128,6 +128,7 @@ import UIKit
 struct User {
     var email: String
     var password: String
+    var rePassword: String
     var nickname: String
     var profileImage: Photo?
     var userType: UserType
@@ -135,6 +136,7 @@ struct User {
     init() {
         email = ""
         password = ""
+        rePassword = ""
         nickname = ""
         userType = .None
     }

@@ -15,19 +15,17 @@ public enum SignUpInputType: CaseIterable {
     case Nickname
 }
 
-//MARK: Regex Expression
+//MARK: Regular Expression
 
 extension SignUpInputType {
-    var regexExpressionPattern: String {
+    var regexPattern: String {
         switch self {
         case .Email:
             return "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-        case .Password:
-            return "[A-Za-z0-9]{8,12}"
-        case .DuplicatePassword:
-            return "[A-Za-z0-9]{8,12}"
+        case .Password, .DuplicatePassword:
+            return "[A-Za-z0-9!@#$%^&*()]{8,12}"
         case .Nickname:
-            return "[A-Za-z0-9]{4,16}"
+            return "[가-힣A-Za-z0-9]{2,10}"
         }
     }
     
@@ -35,12 +33,10 @@ extension SignUpInputType {
         switch self {
         case .Email:
             return "이메일 형식이 맞지 않습니다."
-        case .Password:
-            return "비밀번호 형식이 맞지 않습니다."
-        case .DuplicatePassword:
-            return "비밀번호 형식이 맞지 않습니다."
+        case .Password, .DuplicatePassword:
+            return "비밀번호 형식이 맞지 않습니다. 영어,숫자,특수문자 8~12자리"
         case .Nickname:
-            return "닉네임 형식이 맞지 않습니다."
+            return "닉네임 형식이 맞지 않습니다. 문자,숫자 2~10자리"
         }
     }
 }

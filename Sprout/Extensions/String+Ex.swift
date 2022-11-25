@@ -10,12 +10,14 @@ import Foundation
 
 extension String {
     func checkRegularExpression(with pattern: String) -> Bool {
-        guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) else {
-            return false
-        }
-        let range = NSRange(location: 0, length: self.count)
-        let matches = regex.matches(in: self, options: [], range: range)
-        return matches.first != nil
+        let pred = NSPredicate(format:"SELF MATCHES %@", pattern)
+        return pred.evaluate(with: self)
+//        guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) else {
+//            return false
+//        }
+//        let range = NSRange(location: 0, length: self.count)
+//        let matches = regex.matches(in: self, options: [], range: range)
+//        return matches.first != nil
     }
     
     var randomImageURL: URL? {
