@@ -125,12 +125,12 @@ import UIKit
 //    }
 //}
 
-struct User {
+struct User: Codable {
     var email: String
     var password: String
     var rePassword: String
     var nickname: String
-    var profileImage: Photo?
+    //var profileImage: Photo?
     var userType: UserType
 
     init() {
@@ -156,7 +156,7 @@ struct User {
     }
 }
 
-enum UserType: String {
+enum UserType: String, Codable {
     case None
     case Mentor
     case Mentee

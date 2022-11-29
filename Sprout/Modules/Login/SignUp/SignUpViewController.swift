@@ -50,7 +50,7 @@ extension SignUpViewController: ViewModel {
 
         output?.resultMessage
             .subscribe(onNext: { text in
-                DEBUG_LOG("TEST!! output?.resultMessage: \(text)")
+                //DEBUG_LOG("TEST!! output?.resultMessage: \(text)")
             }).disposed(by: disposeBag)
         
         output?.errorMessage
@@ -67,7 +67,7 @@ extension SignUpViewController: ViewModel {
 
         output?.currentUserData
             .subscribe(onNext: { user in
-                DEBUG_LOG("TEST!! output?.currentUserData: \(user)")
+                //DEBUG_LOG("TEST!! output?.currentUserData: \(user)")
             }).disposed(by: disposeBag)
         
 //        output?.profileImage

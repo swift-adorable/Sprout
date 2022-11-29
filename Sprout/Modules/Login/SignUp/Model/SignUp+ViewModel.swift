@@ -83,6 +83,24 @@ class SignUpViewModel: ViewModelType {
             }.bind(to: user)
             .disposed(by: disposeBag)
         
+        user
+            .map { (UserDefaultsManager.Keys.user, GenericProperty($0)) }
+            .bind(to: UserDefaultsManager.shared.rx.update)
+            .disposed(by: disposeBag)
+        
+        UserDefaultsManager.shared.rx.value(of: .user)
+            .map { $0.value as? User }
+            .debug("TEST!! observe value(of: .user)")
+            .subscribe(onNext: { (user) in
+                DEBUG_LOG("TEST!! user: \(String(describing: user))")
+            }).disposed(by: disposeBag)
+        
+        UserDefaultsManager.shared.rx.value(of: .unknown)
+            .debug("TEST!! observe value(of: .unknown)")
+            .subscribe(onNext: { (unknown) in
+                DEBUG_LOG("TEST!! unknown: \(String(describing: unknown))")
+            }).disposed(by: disposeBag)
+        
 //        input.photo
 //            .withLatestFrom(user) { ($0, $1) }
 //            .subscribe(onNext: { [weak self] (photo, user) in
