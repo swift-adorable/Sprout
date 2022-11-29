@@ -90,13 +90,11 @@ class SignUpViewModel: ViewModelType {
         
         UserDefaultsManager.shared.rx.value(of: .user)
             .map { $0.value as? User }
-            .debug("TEST!! observe value(of: .user)")
             .subscribe(onNext: { (user) in
                 DEBUG_LOG("TEST!! user: \(String(describing: user))")
             }).disposed(by: disposeBag)
         
         UserDefaultsManager.shared.rx.value(of: .unknown)
-            .debug("TEST!! observe value(of: .unknown)")
             .subscribe(onNext: { (unknown) in
                 DEBUG_LOG("TEST!! unknown: \(String(describing: unknown))")
             }).disposed(by: disposeBag)

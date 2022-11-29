@@ -14,14 +14,9 @@ import RxSwift
 extension UserDefaults {
     
     fileprivate func update(of key: UserDefaultsManager.Keys, property: GenericProperty<Any>) {
-        guard !property.isCodable else {
-            self.set(property.encodedValue(), forKey: key.rawValue)
-            UserDefaultsManager.shared.value.onNext(key)
-            return
-        }
-        self.set(property.value, forKey: key.rawValue)
-        UserDefaultsManager.shared.value.onNext(key)
-        return
+        
+        let updateValue = property.isCodable ? property.encodedValue() : property.value
+        self.set(updateValue, forKey: key.rawValue)
     }
     
 }
@@ -36,6 +31,24 @@ final class UserDefaultsManager: ReactiveCompatible {
     
     fileprivate var value: BehaviorSubject<Keys> = BehaviorSubject(value: .unknown)
     
+    func value(of key: UserDefaultsManager.Keys) -> GenericProperty<Any>? {
+        
+        guard let object = UserDefaultsManager.standard.object(forKey: key.rawValue) else {
+            return nil
+        }
+        
+        guard !(key.isCodableData) else {
+            if let data = object as? Data, let type = key.type,
+               let decoded = try? JSONDecoder().decode(type, from: data) {
+                return GenericProperty(decoded)
+            }
+            
+            return nil
+        }
+        
+        return GenericProperty(object)
+    }
+    
 }
 
 extension Reactive where Base: UserDefaultsManager {
@@ -46,29 +59,20 @@ extension Reactive where Base: UserDefaultsManager {
             //.debug("Base.shared.value.asObserver")
             .filter { $0 == key }
             .flatMap { (key) -> Observable<GenericProperty<Any>> in
-                guard let object = Base.standard.object(forKey: key.rawValue) else {
+                guard let value = Base.shared.value(of: key) else {
                     return .empty()
                 }
-                
-                guard !(key.isCodableData) else {
-                    if let data = Base.standard.object(forKey: key.rawValue) as? Data, let type = key.type,
-                       let decoded = try? JSONDecoder().decode(type, from: data) {
-                        return Observable.just(GenericProperty(decoded))
-                    }
-                    
-                    return .empty()
-                }
-                
-                return Observable.just(GenericProperty(object))
+                return Observable.just(value)
             }
         
     }
     
     var update: Binder<(Base.Keys, GenericProperty<Any>)> {
-        Binder(Base.standard) { (shared, arg) in
+        Binder(Base.standard) { (standard, arg) in
             let (key, property) = arg
             //DEBUG_LOG("UserDefaults update key: \(key), value: \(String(describing: property.value))")
-            shared.update(of: key, property: property)
+            standard.update(of: key, property: property)
+            Base.shared.value.onNext(key)
         }
     }
     
